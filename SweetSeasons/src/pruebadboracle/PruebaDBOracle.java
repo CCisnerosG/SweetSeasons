@@ -17,6 +17,7 @@ public class PruebaDBOracle {
         }
 
         String url = "jdbc:oracle:thin:@192.168.0.12:1521:orcldb";
+       // String url = "jdbc:oracle:thin:@192.168.1.24:1521:orcldb"; //IP MV ANDY
         String user = "HR";
         String pass = "hr";
         String sql = "SELECT EMPLOYEE_ID FROM EMPLOYEES WHERE LAST_NAME = 'King'";
