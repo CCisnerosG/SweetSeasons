@@ -275,7 +275,7 @@ CREATE OR REPLACE PROCEDURE Ej_Func_Client(IDE NUMBER)
 IS
     resultado VARCHAR2(100);
 BEGIN
-    resultado := DELETE_CLIENTES(IDE); -- Llama a la funci√≥n DELETE_CLIENTES
+    resultado := DELETE_CLIENTES(IDE); -- Llama a la funci√É¬≥n DELETE_CLIENTES
     DBMS_OUTPUT.PUT_LINE(resultado);
 END;
 
@@ -296,7 +296,7 @@ CREATE OR REPLACE PROCEDURE Ej_Func_Vent(IDE NUMBER)
 IS
     resultado VARCHAR2(100);
 BEGIN
-    resultado := DELETE_VENTAS(IDE); -- Llama a la funci√≥n DELETE_VENTAS
+    resultado := DELETE_VENTAS(IDE); -- Llama a la funci√É¬≥n DELETE_VENTAS
     DBMS_OUTPUT.PUT_LINE(resultado);
 END;
 
@@ -354,7 +354,7 @@ ESTADO IN VARCHAR2)
 AS
 BEGIN
 INSERT INTO PROVEEDORES(ID_PROVEEDOR ,NOMBRE_PROVEEDOR ,PRIMER_APELLIDO,
-SEGUNDO_APELLDO ,NUMERO_TELEFONIO ,CORREO_ELECTRONICO ,ESTADO)
+SEGUNDO_APELLIDO ,NUMERO_TELEFONICO ,CORREO_ELECTRONICO ,ESTADO)
 VALUES (ID_PRO,NOMBRE,PAPELLIDO,SAPELLIDO,TELEFONO,CORREO,ESTADO);
 END;
 
@@ -480,7 +480,7 @@ BEGIN
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
-EXEC ADD_CATEGORY(6, 'TestName', 'DescripciÛn de test Category');
+EXEC ADD_CATEGORY(6, 'TestName', 'Descripci√≥n de test Category');
 
 -- 2) Procedimiento para eliminar una categoria
 
@@ -509,7 +509,7 @@ BEGIN
     SET NOMBRE = p_nuevo_nombre
     WHERE ID_CATEGORIA = p_id_categoria;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('DescripciÛn de la categorÌa actualizada con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Descripci√≥n de la categor√≠a actualizada con √©xito.');
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
@@ -527,11 +527,11 @@ BEGIN
     SET DESCRIPCION = p_nueva_descripcion
     WHERE ID_CATEGORIA = p_id_categoria;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('DescripciÛn de la categorÌa actualizada con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Descripci√≥n de la categor√≠a actualizada con √©xito.');
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
-EXEC UPDATE_CATEGORY_DESCRIPTION(5, 'Nueva descripciÛn actualizada');
+EXEC UPDATE_CATEGORY_DESCRIPTION(5, 'Nueva descripci√≥n actualizada');
 
 -- SP para Productos
 
@@ -551,7 +551,7 @@ BEGIN
     INSERT INTO PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO)
     VALUES (p_id_producto, p_nombre, p_id_categoria, p_cantidad, p_descripcion, p_tamano, p_precio);
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Producto agregado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Producto agregado con √©xito.');
 END;
 
 -- 2) Procedimiento para eliminar un producto.
@@ -564,7 +564,7 @@ BEGIN
     DELETE FROM PRODUCTOS
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Producto eliminado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Producto eliminado con √©xito.');
 END;
 
 -- 3) Procedimiento para actualizar la cantidad de un producto.
@@ -579,7 +579,7 @@ BEGIN
     SET CANTIDAD = p_nueva_cantidad
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con √©xito.');
 END;
 
 
@@ -595,7 +595,7 @@ BEGIN
     SET TAMANO = p_nuevo_tamano
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('TamaÒo del producto actualizado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Tama√±o del producto actualizado con √©xito.');
 END;
 
 
@@ -611,7 +611,7 @@ BEGIN
     SET PRECIO = p_nuevo_precio
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con √©xito.');
 END;
 
 
@@ -658,7 +658,7 @@ RETURN VARCHAR2
 AS
     v_info_categoria VARCHAR2(200);
 BEGIN
-    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', DescripciÛn: ' || DESCRIPCION
+    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', Descripci√≥n: ' || DESCRIPCION
     INTO v_info_categoria
     FROM CATEGORIA_PRODUCTOS
     WHERE ID_CATEGORIA = p_id_categoria;
@@ -676,7 +676,7 @@ AS
     v_info_producto VARCHAR2(200);
 BEGIN
     SELECT 'ID: ' || ID_PRODUCTOS || ', Nombre: ' || NOMBRE || ', Cantidad: ' || CANTIDAD ||
-           ', DescripciÛn: ' || DESCRIPCION || ', TamaÒo: ' || TAMANO || ', Precio: ' || PRECIO
+           ', Descripci√≥n: ' || DESCRIPCION || ', Tama√±o: ' || TAMANO || ', Precio: ' || PRECIO
     INTO v_info_producto
     FROM PRODUCTOS
     WHERE ID_PRODUCTOS = p_id_producto;
@@ -701,8 +701,8 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
                            ', Nombre: ' || v_producto.NOMBRE ||
                            ', Cantidad: ' || v_producto.CANTIDAD ||
-                           ', DescripciÛn: ' || v_producto.DESCRIPCION ||
-                           ', TamaÒo: ' || v_producto.TAMANO ||
+                           ', Descripci√≥n: ' || v_producto.DESCRIPCION ||
+                           ', Tama√±o: ' || v_producto.TAMANO ||
                            ', Precio: ' || v_producto.PRECIO);
    END LOOP;
    CLOSE c_productos;
@@ -723,8 +723,8 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
                            ', Nombre: ' || v_producto.NOMBRE ||
                            ', Cantidad: ' || v_producto.CANTIDAD ||
-                           ', DescripciÛn: ' || v_producto.DESCRIPCION ||
-                           ', TamaÒo: ' || v_producto.TAMANO ||
+                           ', Descripci√≥n: ' || v_producto.DESCRIPCION ||
+                           ', Tama√±o: ' || v_producto.TAMANO ||
                            ', Precio: ' || v_producto.PRECIO);
    END LOOP;
    CLOSE c_productos_categoria;
@@ -748,7 +748,7 @@ BEGIN
 
    COMMIT;
 
-   DBMS_OUTPUT.PUT_LINE('Precios aumentados en un 5% para la categorÌa seleccionada.');
+   DBMS_OUTPUT.PUT_LINE('Precios aumentados en un 5% para la categor√≠a seleccionada.');
 END;
 
 -- 4) Cursor para actualizar los precios de una categoria especifica en reducirlos en un 10% en caso de un descuento promocion.
@@ -767,7 +767,7 @@ BEGIN
       WHERE ID_PRODUCTOS = producto_rec.ID_PRODUCTOS;
    END LOOP;
    COMMIT;
-   DBMS_OUTPUT.PUT_LINE('Precios reducidos en un 10% para la categorÌa seleccionada.');
+   DBMS_OUTPUT.PUT_LINE('Precios reducidos en un 10% para la categor√≠a seleccionada.');
 END;
 
 
