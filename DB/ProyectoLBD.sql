@@ -45,7 +45,26 @@ NUMERO_TELEFONICO NUMBER(20) NOT NULL,
 CORREO_ELECTRONICO VARCHAR2(50)NOT NULL,
 ESTADO VARCHAR2(50)NOT NULL)
 
+--Creacion Tabla de Categoria Productos
+CREATE TABLE CATEGORIA_PRODUCTOS (
+ID_CATEGORIA NUMBER(10) NOT NULL,
+NOMBRE VARCHAR2(30) NOT NULL,
+DESCRIPCION VARCHAR2(50) NOT NULL,
+CONSTRAINT CAT_PRODUCTOS_PK PRIMARY KEY (ID_CATEGORIA)
+);
 
+--Creacion Tabla de Productos
+CREATE TABLE PRODUCTOS (
+ID_PRODUCTOS NUMBER(10) NOT NULL,
+NOMBRE VARCHAR2(50) NOT NULL,
+ID_CATEGORIA NUMBER(10) NOT NULL,
+CANTIDAD NUMBER(10) NOT NULL,
+DESCRIPCION VARCHAR2(100),
+TAMANO VARCHAR(10),
+PRECIO NUMBER(20),
+CONSTRAINT PRODUCTOS_PK PRIMARY KEY (ID_PRODUCTOS),
+CONSTRAINT CATEGORIA_PRODUCTOS_FK FOREIGN KEY (ID_CATEGORIA) REFERENCES CATEGORIA_PRODUCTOS(ID_CATEGORIA)
+);
 
 --CREACION DE LLAVES PRIMARIAS
 ALTER TABLE INGREDIENTES
@@ -103,6 +122,67 @@ INSERT INTO VENTAS (ID_VENTA, FECHA_VENTA, CANTIDAD, PRECIO, ID_CLIENTE, ID_PROD
 VALUES (9, '2023-10-29', 2, 7500.00, 9, 4);
 INSERT INTO VENTAS (ID_VENTA, FECHA_VENTA, CANTIDAD, PRECIO, ID_CLIENTE, ID_PRODUCTOS)
 VALUES (10, '2023-10-30', 3, 10000.00, 10, 5);
+
+--Inserts a Categorias de Productos:
+Insert into CATEGORIA_PRODUCTOS (ID_CATEGORIA, NOMBRE, DESCRIPCION) 
+values (1,'Cupcakes','Pequenos y deliciosos cupcakes');
+Insert into CATEGORIA_PRODUCTOS (ID_CATEGORIA, NOMBRE, DESCRIPCION) 
+values (2,'Brownies','Irresistibles brownies de chocolate');
+Insert into CATEGORIA_PRODUCTOS (ID_CATEGORIA, NOMBRE, DESCRIPCION) 
+values (3,'Panes','Panes frescos y deliciosos');
+Insert into CATEGORIA_PRODUCTOS (ID_CATEGORIA, NOMBRE, DESCRIPCION) 
+values (4,'Pasteles','Pasteles unicos y deliciosos');
+
+--Inserts a Productos:
+-- Cupcakes
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (1, 'Cupcake Vainilla', 1, 30, 'Cupcake suave de vainilla', 'PEQUENO', 7000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (2, 'Cupcake Chocolate', 1, 25, 'Cupcake delicioso de chocolate', 'MEDIANO', 8500);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (3, 'Cupcake Fresa', 1, 20, 'Cupcake con relleno de fresa', 'GRANDE', 12000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (4, 'Cupcake Moka', 1, 18, 'Cupcake con sabor a moka', 'MEDIANO', 9500);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (5, 'Cupcake Caramelo', 1, 22, 'Cupcake con decoracion de caramelo', 'GRANDE', 13000);
+
+-- Brownies
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (6, 'Brownie Nuez', 2, 15, 'Brownie de chocolate con nueces', 'PEQUENO', 5500);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (7, 'Brownie Chocolate Blanco', 2, 20, 'Brownie con chocolate blanco', 'MEDIANO', 7000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (8, 'Brownie Frutas Rojas', 2, 25, 'Brownie con frutas rojas', 'GRANDE', 11000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (9, 'Brownie Caramelo Salado', 2, 18, 'Brownie con caramelo salado', 'MEDIANO', 8000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (10, 'Brownie Menta', 2, 22, 'Brownie con sabor a menta', 'GRANDE', 15000);
+
+-- Panes
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (11, 'Pan Integral', 3, 28, 'Pan integral recien horneado', 'MEDIANO', 7500);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (12, 'Pan Multicereales', 3, 35, 'Pan con una mezcla de cereales', 'GRANDE', 10000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (13, 'Pan Centeno', 3, 22, 'Pan de centeno con semillas', 'PEQUENO', 6000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (14, 'Pan Avena', 3, 30, 'Pan con copos de avena', 'MEDIANO', 8500);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (15, 'Pan Nuez y Miel', 3, 18, 'Pan con nueces y miel', 'GRANDE', 12000);
+
+-- Pasteles
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (16, 'Pastel Fresa y Chocolate', 4, 20, 'Pastel con capas de fresa y chocolate', 'PEQUENO', 8000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (17, 'Pastel Tres Leches', 4, 25, 'Pastel esponjoso con tres tipos de leche', 'MEDIANO', 11000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (18, 'Pastel Zanahoria', 4, 30, 'Pastel de zanahoria con crema de queso', 'GRANDE', 15000);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (19, 'Pastel Manzana Canela', 4, 22, 'Pastel con manzanas y canela', 'MEDIANO', 9500);
+Insert into PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO) 
+values (20, 'Pastel Selva Negra', 4, 18, 'Pastel con capas de chocolate y cerezas', 'PEQUENO', 7000);
+
+
 
 --Procedure para ingresar datos
 --Clientes
@@ -165,6 +245,7 @@ END;
     
 EXEC INSERT_CLIENTES (10, 'Monica', 'Jimenez', 'Ramirez', 'monica.ramirez@gmail.com', 91234567, 'Alajuela');
 
+
 --VIEW PARA READ
 --CLIENTES
 CREATE VIEW READ_CLIENTE AS
@@ -177,6 +258,7 @@ CREATE VIEW READ_VENTAS AS
 SELECT FECHA_VENTA,CANTIDAD,PRECIO,ID_CLIENTE,ID_PRODUCTOS
 FROM VENTAS
 ORDER BY FECHA_VENTA;
+
 
 -- FUNCTION PARA ELIMINAR DATOS DE UNA TABLA
 --CLIENTES
@@ -376,4 +458,317 @@ END;
 
 EXEC ELIMINAR_INGREDIENTE(1);
 SELECT * FROM INGREDIENTES;
-     
+
+
+
+---------------- PROCEDIMIENTOS ALMACENADOS CATEGORIAS Y PRODUCTOS ---------------
+
+-- SP para Categorias
+
+-- 1) Procedimiento para agregar/insertar una categoria
+
+CREATE OR REPLACE PROCEDURE ADD_CATEGORY (
+    p_id_categoria IN NUMBER,
+    p_nombre IN VARCHAR2,
+    p_descripcion IN VARCHAR2
+)
+AS
+BEGIN
+    INSERT INTO CATEGORIA_PRODUCTOS (ID_CATEGORIA, NOMBRE, DESCRIPCION)
+    VALUES (p_id_categoria, p_nombre, p_descripcion);    
+    COMMIT;
+END;
+
+/* El siguiente EXEC para testeo nada mas! */
+EXEC ADD_CATEGORY(6, 'TestName', 'Descripción de test Category');
+
+-- 2) Procedimiento para eliminar una categoria
+
+CREATE OR REPLACE PROCEDURE DELETE_CATEGORY (
+    p_id_categoria IN NUMBER
+)
+AS
+BEGIN
+    DELETE FROM CATEGORIA_PRODUCTOS
+    WHERE ID_CATEGORIA = p_id_categoria;
+    COMMIT;
+END;
+
+/* El siguiente EXEC para testeo nada mas! */
+EXEC DELETE_CATEGORY(6);
+
+-- 3) Procedimiento para actualizar nombre de una categoria
+
+CREATE OR REPLACE PROCEDURE UPDATE_CATEGORY_NAME (
+    p_id_categoria IN NUMBER,
+    p_nuevo_nombre IN VARCHAR2
+)
+AS
+BEGIN
+    UPDATE CATEGORIA_PRODUCTOS
+    SET NOMBRE = p_nuevo_nombre
+    WHERE ID_CATEGORIA = p_id_categoria;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Descripción de la categoría actualizada con éxito.');
+END;
+
+/* El siguiente EXEC para testeo nada mas! */
+EXEC UPDATE_CATEGORY_NAME(5, 'Nuevo nombre actualizada');
+
+-- 4) Procedimiento para actualizar descripcion de una categoria
+
+CREATE OR REPLACE PROCEDURE UPDATE_CATEGORY_DESCRIPTION (
+    p_id_categoria IN NUMBER,
+    p_nueva_descripcion IN VARCHAR2
+)
+AS
+BEGIN
+    UPDATE CATEGORIA_PRODUCTOS
+    SET DESCRIPCION = p_nueva_descripcion
+    WHERE ID_CATEGORIA = p_id_categoria;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Descripción de la categoría actualizada con éxito.');
+END;
+
+/* El siguiente EXEC para testeo nada mas! */
+EXEC UPDATE_CATEGORY_DESCRIPTION(5, 'Nueva descripción actualizada');
+
+-- SP para Productos
+
+-- 1) Procedimiento para agregar nuevos productos.
+
+CREATE OR REPLACE PROCEDURE ADD_PRODUCTOS (
+    p_id_producto IN NUMBER,
+    p_nombre IN VARCHAR2,
+    p_id_categoria IN NUMBER,
+    p_cantidad IN NUMBER,
+    p_descripcion IN VARCHAR2,
+    p_tamano IN VARCHAR2,
+    p_precio IN NUMBER
+)
+AS
+BEGIN
+    INSERT INTO PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO)
+    VALUES (p_id_producto, p_nombre, p_id_categoria, p_cantidad, p_descripcion, p_tamano, p_precio);
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Producto agregado con éxito.');
+END;
+
+-- 2) Procedimiento para eliminar un producto.
+
+CREATE OR REPLACE PROCEDURE DELETE_PRODUCTOS (
+    p_id_producto IN NUMBER
+)
+AS
+BEGIN
+    DELETE FROM PRODUCTOS
+    WHERE ID_PRODUCTOS = p_id_producto;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Producto eliminado con éxito.');
+END;
+
+-- 3) Procedimiento para actualizar la cantidad de un producto.
+
+CREATE OR REPLACE PROCEDURE UPDATE_PRODUCTOS_CANTIDAD (
+    p_id_producto IN NUMBER,
+    p_nueva_cantidad IN NUMBER
+)
+AS
+BEGIN
+    UPDATE PRODUCTOS
+    SET CANTIDAD = p_nueva_cantidad
+    WHERE ID_PRODUCTOS = p_id_producto;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con éxito.');
+END;
+
+
+-- 4) Procedimiento para actualizar el tamano de un producto.
+
+CREATE OR REPLACE PROCEDURE UPDATE_PRODUCTOS_TAMANO (
+    p_id_producto IN NUMBER,
+    p_nuevo_tamano IN VARCHAR2
+)
+AS
+BEGIN
+    UPDATE PRODUCTOS
+    SET TAMANO = p_nuevo_tamano
+    WHERE ID_PRODUCTOS = p_id_producto;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Tamaño del producto actualizado con éxito.');
+END;
+
+
+-- 5) Procedimiento para actualizar el precio de un producto.
+
+CREATE OR REPLACE PROCEDURE UPDATE_PRODUCTOS_PRECIO (
+    p_id_producto IN NUMBER,
+    p_nuevo_precio IN NUMBER
+)
+AS
+BEGIN
+    UPDATE PRODUCTOS
+    SET PRECIO = p_nuevo_precio
+    WHERE ID_PRODUCTOS = p_id_producto;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con éxito.');
+END;
+
+
+---------------- VISTAS CATEGORIAS Y PRODUCTOS ----------------------------
+
+-- 1) Vista que muestra informacion detallada de productos con nombres de cateogira.
+
+CREATE OR REPLACE VIEW VIEW_PRODUCTOS_CATEGORY AS
+SELECT P.ID_PRODUCTOS, P.NOMBRE, P.CANTIDAD, P.DESCRIPCION, P.TAMANO, P.PRECIO, CP.NOMBRE AS NOMBRE_CATEGORIA
+FROM PRODUCTOS P
+JOIN CATEGORIA_PRODUCTOS CP ON P.ID_CATEGORIA = CP.ID_CATEGORIA;
+
+-- 2) Vista para mostrar cantidad disponible de cada categoria:
+
+CREATE OR REPLACE VIEW VIEW_CATEGORY_CANT_DISPONIBLE AS
+SELECT CP.NOMBRE AS NOMBRE_CATEGORIA, SUM(P.CANTIDAD) AS CANTIDAD_TOTAL
+FROM PRODUCTOS P
+JOIN CATEGORIA_PRODUCTOS CP ON P.ID_CATEGORIA = CP.ID_CATEGORIA
+GROUP BY CP.NOMBRE;
+
+-- 3) Vista para mostrar cantidad de productos con cantidad baja
+
+CREATE OR REPLACE VIEW VIEW_PRODUCTOS_CANT_BAJA AS
+SELECT * FROM PRODUCTOS
+WHERE CANTIDAD < 20;
+
+-- 4) Vista para mostrar informacion de categorias con cantidad total de productos.
+
+CREATE OR REPLACE VIEW VIEW_CATEGORY_CANT_TOTAL AS
+SELECT CP.ID_CATEGORIA, CP.NOMBRE, CP.DESCRIPCION, COUNT(P.ID_PRODUCTOS) AS CANTIDAD_TOTAL
+FROM CATEGORIA_PRODUCTOS CP
+LEFT JOIN PRODUCTOS P ON CP.ID_CATEGORIA = P.ID_CATEGORIA
+GROUP BY CP.ID_CATEGORIA, CP.NOMBRE, CP.DESCRIPCION;
+
+
+-------------- FUNCIONES CATEGORIAS Y PRODUCTOS --------------------------
+
+-- Obtener (lectura) informacion de un producto por categoria
+
+CREATE OR REPLACE FUNCTION READ_CATEGORY (
+    p_id_categoria IN NUMBER
+)
+RETURN VARCHAR2
+AS
+    v_info_categoria VARCHAR2(200);
+BEGIN
+    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', Descripción: ' || DESCRIPCION
+    INTO v_info_categoria
+    FROM CATEGORIA_PRODUCTOS
+    WHERE ID_CATEGORIA = p_id_categoria;
+
+    RETURN v_info_categoria;
+END;
+
+-- Obtener (lectura) informacion de una categoria de producto.
+
+CREATE OR REPLACE FUNCTION READ_PRODUCTOS (
+    p_id_producto IN NUMBER
+)
+RETURN VARCHAR2
+AS
+    v_info_producto VARCHAR2(200);
+BEGIN
+    SELECT 'ID: ' || ID_PRODUCTOS || ', Nombre: ' || NOMBRE || ', Cantidad: ' || CANTIDAD ||
+           ', Descripción: ' || DESCRIPCION || ', Tamaño: ' || TAMANO || ', Precio: ' || PRECIO
+    INTO v_info_producto
+    FROM PRODUCTOS
+    WHERE ID_PRODUCTOS = p_id_producto;
+
+    RETURN v_info_producto;
+END;
+
+
+--------------- CURSORES CATEGORIAS Y PRODUCTOS ----------------------------
+
+-- 1) Cursor para recorrer y mostrar todos los productos de la tabla.
+
+DECLARE
+   CURSOR c_productos IS
+      SELECT * FROM PRODUCTOS;
+   v_producto PRODUCTOS%ROWTYPE;
+BEGIN
+   OPEN c_productos;
+   LOOP
+      FETCH c_productos INTO v_producto;
+      EXIT WHEN c_productos%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
+                           ', Nombre: ' || v_producto.NOMBRE ||
+                           ', Cantidad: ' || v_producto.CANTIDAD ||
+                           ', Descripción: ' || v_producto.DESCRIPCION ||
+                           ', Tamaño: ' || v_producto.TAMANO ||
+                           ', Precio: ' || v_producto.PRECIO);
+   END LOOP;
+   CLOSE c_productos;
+END;
+
+-- 2) Cursor para mostrar productos de una categoria especifica.
+
+DECLARE
+   CURSOR c_productos_categoria(p_id_categoria NUMBER) IS
+      SELECT * FROM PRODUCTOS
+      WHERE ID_CATEGORIA = p_id_categoria;
+   v_producto PRODUCTOS%ROWTYPE;
+BEGIN
+   OPEN c_productos_categoria(2);
+   LOOP
+      FETCH c_productos_categoria INTO v_producto;
+      EXIT WHEN c_productos_categoria%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
+                           ', Nombre: ' || v_producto.NOMBRE ||
+                           ', Cantidad: ' || v_producto.CANTIDAD ||
+                           ', Descripción: ' || v_producto.DESCRIPCION ||
+                           ', Tamaño: ' || v_producto.TAMANO ||
+                           ', Precio: ' || v_producto.PRECIO);
+   END LOOP;
+   CLOSE c_productos_categoria;
+END;
+
+-- 3) Cursor para actualizar los precios de los productos de una categoria especifica aumentando sus precios en un 5%.
+
+DECLARE
+   CURSOR AUMENTAR_PRECIO_PORCIENTO IS
+      SELECT ID_PRODUCTOS, PRECIO
+      FROM PRODUCTOS
+      WHERE ID_CATEGORIA = 1;
+
+BEGIN
+   FOR producto_rec IN AUMENTAR_PRECIO_PORCIENTO
+   LOOP
+      UPDATE PRODUCTOS
+      SET PRECIO = producto_rec.PRECIO * 1.05
+      WHERE ID_PRODUCTOS = producto_rec.ID_PRODUCTOS;
+   END LOOP;
+
+   COMMIT;
+
+   DBMS_OUTPUT.PUT_LINE('Precios aumentados en un 5% para la categoría seleccionada.');
+END;
+
+-- 4) Cursor para actualizar los precios de una categoria especifica en reducirlos en un 10% en caso de un descuento promocion.
+
+DECLARE
+   
+   CURSOR reducir_precio IS
+      SELECT ID_PRODUCTOS, PRECIO
+      FROM PRODUCTOS
+      WHERE ID_CATEGORIA = 2; 
+BEGIN
+   FOR producto_rec IN reducir_precio
+   LOOP
+      UPDATE PRODUCTOS
+      SET PRECIO = producto_rec.PRECIO * 0.9
+      WHERE ID_PRODUCTOS = producto_rec.ID_PRODUCTOS;
+   END LOOP;
+   COMMIT;
+   DBMS_OUTPUT.PUT_LINE('Precios reducidos en un 10% para la categoría seleccionada.');
+END;
+
+
+
