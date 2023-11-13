@@ -16,29 +16,28 @@ public class PruebaDBOracle {
             return;
         }
 
-        String url = "jdbc:oracle:thin:@192.168.0.12:1521:orcldb";
-       // String url = "jdbc:oracle:thin:@192.168.1.24:1521:orcldb"; //IP MV ANDY
-        String user = "HR";
-        String pass = "hr";
-        String sql = "SELECT EMPLOYEE_ID FROM EMPLOYEES WHERE LAST_NAME = 'King'";
-        int empId;
+        String url = "jdbc:oracle:thin:@192.168.0.12:1521:orcldb"; //Ip MV Carlos 
+        //String url = "jdbc:oracle:thin:@192.168.1.24:1521:orcldb"; //IP MV ANDY
+        //String url = "jdbc:oracle:thin:@192.168.56.101:1521:orcl"; //Ip MV Ma Fer
+        String user = "ProyectoSS";
+        String pass = "1234";
+        
+        String sql = "SELECT ID_CLIENTE FROM CLIENTE WHERE NOMBRE = 'Pablo'";
+        int clId;
+        
         Connection conn;
-
-        try {
+        
+        try{
             conn = DriverManager.getConnection(url, user, pass);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                empId = rs.getInt(1);
-                System.out.println("El código de empleado es: " + empId);
-            }
             
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println("Error en la conexión: " + e.getLocalizedMessage());
+            while(rs.next()){
+                clId = rs.getInt(1);
+                 System.out.println("El id del cliente es: " + clId);
+            }
+        }catch(SQLException err){
+            System.out.println("Error en la conexion: " + err.getLocalizedMessage());
         }
     }
 }
