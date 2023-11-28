@@ -39,5 +39,15 @@ public class PruebaDBOracle {
         }catch(SQLException err){
             System.out.println("Error en la conexion: " + err.getLocalizedMessage());
         }
+        
+        Inicio();
     }
+    
+    public static void Inicio() {
+        frmLogin inicio = new frmLogin();
+        inicio.setLocationRelativeTo(null); // Esto centra el form en la pantalla al ejecutarse.
+        inicio.setVisible(true); // Esto hace visible el form.
+    }
+    
+    
 }
