@@ -25,6 +25,9 @@ CONSTRAINT VENTAS_CLIENTE_FK FOREIGN KEY (ID_CLIENTE) REFERENCES CLIENTE(ID_CLIE
 CONSTRAINT VENTAS_PRODUCTOS_FK FOREIGN KEY (ID_PRODUCTOS) REFERENCES PRODUCTOS(ID_PRODUCTOS)
 );
 
+
+
+
 --Creacion tabla ingredientes
 CREATE TABLE INGREDIENTES(
 ID_INGREDIENTE NUMBER NOT NULL,
@@ -347,17 +350,19 @@ DECLARE
     TOTAL_VEN VENTAS.TOTAL%TYPE;
     FECHA VENTAS.FECHA_VENTA%TYPE;
 BEGIN 
-    OPEN cur_clie_to FOR SELECT c.NOMBRE, c.PRIMER_APELLIDO, c.SEGUNDO_APELLIDO, v.FECHA_VENTA , v.TOTAL 
-    FROM CLIENTE c
-    INNER JOIN VENTAS v  ON c.ID_CLIENTE=v.ID_CLIENTE
-    WHERE v.ID_VENTA = 9;
+    OPEN cur_clie_to FOR 
+        SELECT c.NOMBRE, c.PRIMER_APELLIDO, c.SEGUNDO_APELLIDO, v.FECHA_VENTA, v.TOTAL 
+        FROM CLIENTE c
+        INNER JOIN VENTAS v ON c.ID_CLIENTE = v.ID_CLIENTE
+        WHERE v.ID_VENTA = 9;
     
-    FETCH cur_var INTO NOM, PRIMER_AP, SEGUNDO_AP, FECHA, TOTAL_VEN;
-    CLOSE cur_var;
+    FETCH cur_clie_to INTO NOM, PRIMER_AP, SEGUNDO_AP, FECHA, TOTAL_VEN;
+    CLOSE cur_clie_to;
     
-     DBMS_OUTPUT.PUT_LINE( NOM || ' ' || PRIMER_AP || ' ' || SEGUNDO_AP || 
-     ' compro en total ' || TOTAL_VEN || ' compro en total ' || FECHA);
+    DBMS_OUTPUT.PUT_LINE(NOM || ' ' || PRIMER_AP || ' ' || SEGUNDO_AP || 
+        ' compró en total ' || TOTAL_VEN || ' en la fecha ' || FECHA);
 END;
+
 
 --funcion para traer el nombre  del producto con el total que compro en una venta
 DECLARE 
@@ -368,16 +373,17 @@ DECLARE
     TOTAL_VEN VENTAS.TOTAL%TYPE;
 BEGIN 
     OPEN cur_pro_ven FOR SELECT p.NOMBRE, v.CANTIDAD, v.FECHA_VENTA, v.TOTAL 
-    FROM PRODUCTO p
-    INNER JOIN VENTAS v  ON p.ID_PRODUCTOS=v.ID_PRODUCTOS
+    FROM PRODUCTOS p
+    INNER JOIN VENTAS v ON p.ID_PRODUCTOS = v.ID_PRODUCTOS
     WHERE v.ID_VENTA = 9;
-    
-    FETCH cur_var INTO NOM, CANT, FECHA, TOTAL_VEN;
-    CLOSE cur_var;
-    
-     DBMS_OUTPUT.PUT_LINE( 'Se compro '|| CANT || ' '  || NOM || ' en la fecha ' 
-     || FECHA || ' con un total ' || TOTAL_VEN);
+
+    FETCH cur_pro_ven INTO NOM, CANT, FECHA, TOTAL_VEN;
+    CLOSE cur_pro_ven;
+
+    DBMS_OUTPUT.PUT_LINE('Se compró ' || CANT || ' ' || NOM || ' en la fecha ' || 
+    FECHA || ' con un total ' || TOTAL_VEN);
 END;
+
 
 
 
@@ -389,7 +395,7 @@ ESTADO IN VARCHAR2)
 AS
 BEGIN
 INSERT INTO PROVEEDORES(ID_PROVEEDOR ,NOMBRE_PROVEEDOR ,PRIMER_APELLIDO,
-SEGUNDO_APELLDO ,NUMERO_TELEFONIO ,CORREO_ELECTRONICO ,ESTADO)
+SEGUNDO_APELLIDO ,NUMERO_TELEFONICO ,CORREO_ELECTRONICO ,ESTADO)
 VALUES (ID_PRO,NOMBRE,PAPELLIDO,SAPELLIDO,TELEFONO,CORREO,ESTADO);
 END;
 
@@ -871,11 +877,42 @@ END proveedor_con_mas_compras;
 
 -----------------------------Cursores para COMPRAS-----------------------------
 
--- Cursor para obtener todas las compras
-CURSOR c_compras IS
-  SELECT * FROM COMPRAS;
+-- Crear un bloque PL/SQL
+DECLARE
+  CURSOR c_compras IS
+    SELECT ID_COMPRA, FECHA_COMPRA FROM COMPRAS;
+  v_id_compra COMPRAS.ID_COMPRA%TYPE;
+  v_fecha_compra COMPRAS.FECHA_COMPRA%TYPE;
+BEGIN
+  OPEN c_compras;
+  LOOP
+    FETCH c_compras INTO v_id_compra, v_fecha_compra;
+    EXIT WHEN c_compras%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('ID Compra: ' || v_id_compra || ', Fecha Compra: ' || v_fecha_compra); 
+  END LOOP;
+  CLOSE c_compras;
+END;
+
+
 
 -- Cursor para obtener compras de un proveedor específico
-CURSOR c_compras_proveedor(p_id_proveedor IN NUMBER) IS
-  SELECT * FROM COMPRAS WHERE ID_PROVEEDOR = p_id_proveedor;
+CREATE OR REPLACE PROCEDURE OBTENER_COMPRAS_POR_PROVEEDOR(p_id_proveedor IN NUMBER) IS
+  CURSOR c_compras_proveedor IS
+    SELECT ID_COMPRA, FECHA_COMPRA 
+    FROM COMPRAS 
+    WHERE ID_PROVEEDOR = p_id_proveedor;
+  
+  v_id_compra_proveedor COMPRAS.ID_COMPRA%TYPE;
+  v_fecha_compra_proveedor COMPRAS.FECHA_COMPRA%TYPE;
+BEGIN
+  OPEN c_compras_proveedor;
+  LOOP
+    FETCH c_compras_proveedor INTO v_id_compra_proveedor, v_fecha_compra_proveedor;
+
+    EXIT WHEN c_compras_proveedor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('ID Compra: ' || v_id_compra_proveedor || ', Fecha Compra: ' || v_fecha_compra_proveedor);
+  END LOOP;
+  CLOSE c_compras_proveedor;
+END;
+
 
