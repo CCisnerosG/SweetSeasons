@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.border.AbstractBorder;
 
 
@@ -92,6 +94,11 @@ public class frmLogin extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(205, 228, 247));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Iniciar Sesión");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -173,6 +180,33 @@ public class frmLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+
+            String usuario = jTextField1.getText();
+
+            //char[] arrayC = jTextField2.getPassword();
+            String password = jTextField2.getText();
+
+            if ((usuario.length() == 0) || (password.length() == 0)) {
+                JOptionPane.showMessageDialog(null, "Si desea ingresar, debe digitar el usuario y la contraseña");
+            } else {
+
+                if (usuario.equals("Administrador") && (password.equals("12345"))) {
+                    frmMenuPrincipal Menu = new frmMenuPrincipal();
+                    Menu.setTitle("Menu principal");
+                    Menu.setLocationRelativeTo(null);
+                    Menu.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ingrese correctamente el nombre de usuario y contraseña");
+                }
+            }
+        } catch (Exception e) {
+    e.printStackTrace();
+}
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
