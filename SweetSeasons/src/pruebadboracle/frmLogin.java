@@ -101,6 +101,11 @@ public class frmLogin extends javax.swing.JFrame {
         });
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 204));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -207,6 +212,10 @@ public class frmLogin extends javax.swing.JFrame {
     e.printStackTrace();
 }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
