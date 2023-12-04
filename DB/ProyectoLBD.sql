@@ -203,11 +203,11 @@ values (20, 'Pastel Selva Negra', 4, 18, 'Pastel con capas de chocolate y cereza
 --Proveedores
 -- Insertar proveedor 1
 INSERT INTO PROVEEDORES (ID_PROVEEDOR, NOMBRE_PROVEEDOR, PRIMER_APELLIDO, SEGUNDO_APELLIDO, NUMERO_TELEFONICO, CORREO_ELECTRONICO, ESTADO)
-VALUES (1, 'Juan', 'GÛmez', 'LÛpez', 123456789, 'juan.gomez@hotmail.com', 'Activo');
+VALUES (1, 'Juan', 'G√≥mez', 'L√≥pez', 123456789, 'juan.gomez@hotmail.com', 'Activo');
 INSERT INTO PROVEEDORES (ID_PROVEEDOR, NOMBRE_PROVEEDOR, PRIMER_APELLIDO, SEGUNDO_APELLIDO, NUMERO_TELEFONICO, CORREO_ELECTRONICO, ESTADO)
-VALUES (2, 'MarÌa', 'Hern·ndez', 'MartÌnez', 987654321, 'maria.hernandez@gmail.com', 'Inactivo');
+VALUES (2, 'Mar√≠a', 'Hern√°ndez', 'Mart√≠nez', 987654321, 'maria.hernandez@gmail.com', 'Inactivo');
 INSERT INTO PROVEEDORES (ID_PROVEEDOR, NOMBRE_PROVEEDOR, PRIMER_APELLIDO, SEGUNDO_APELLIDO, NUMERO_TELEFONICO, CORREO_ELECTRONICO, ESTADO)
-VALUES (3, 'Pedro', 'DÌaz', 'GarcÌa', 555555555, 'pedro.diaz@hotmail.com', 'Activo');
+VALUES (3, 'Pedro', 'D√≠az', 'Garc√≠a', 555555555, 'pedro.diaz@hotmail.com', 'Activo');
 
 --Compras
 INSERT INTO COMPRAS (ID_COMPRA, FECHA_COMPRA, ID_PROVEEDOR, ID_PRODUCTOS, CANTIDAD, PRECIO, TOTAL)
@@ -313,7 +313,7 @@ CREATE OR REPLACE PROCEDURE Ej_Func_Client(IDE NUMBER)
 IS
     resultado VARCHAR2(100);
 BEGIN
-    resultado := DELETE_CLIENTES(IDE); -- Llama a la funci√≥n DELETE_CLIENTES
+    resultado := DELETE_CLIENTES(IDE); -- Llama a la funci√É¬≥n DELETE_CLIENTES
     DBMS_OUTPUT.PUT_LINE(resultado);
 END;
 
@@ -334,7 +334,7 @@ CREATE OR REPLACE PROCEDURE Ej_Func_Vent(IDE NUMBER)
 IS
     resultado VARCHAR2(100);
 BEGIN
-    resultado := DELETE_VENTAS(IDE); -- Llama a la funci√≥n DELETE_VENTAS
+    resultado := DELETE_VENTAS(IDE); -- Llama a la funci√É¬≥n DELETE_VENTAS
     DBMS_OUTPUT.PUT_LINE(resultado);
 END;
 
@@ -360,7 +360,7 @@ BEGIN
     CLOSE cur_clie_to;
     
     DBMS_OUTPUT.PUT_LINE(NOM || ' ' || PRIMER_AP || ' ' || SEGUNDO_AP || 
-        ' comprÛ en total ' || TOTAL_VEN || ' en la fecha ' || FECHA);
+        ' compr√≥ en total ' || TOTAL_VEN || ' en la fecha ' || FECHA);
 END;
 
 
@@ -380,15 +380,15 @@ BEGIN
     FETCH cur_pro_ven INTO NOM, CANT, FECHA, TOTAL_VEN;
     CLOSE cur_pro_ven;
 
-    DBMS_OUTPUT.PUT_LINE('Se comprÛ ' || CANT || ' ' || NOM || ' en la fecha ' || 
+    DBMS_OUTPUT.PUT_LINE('Se compr√≥ ' || CANT || ' ' || NOM || ' en la fecha ' || 
     FECHA || ' con un total ' || TOTAL_VEN);
 END;
 
 
-
+--PROVEEDORES E INGREDIENTES
 
 --PROCEDIMIENTOS ALMACENADOS
---PROCEDIMIENTO PARA AGREGAR LOS DATOS DE PROVEEDORES
+--1-PROCEDIMIENTO PARA AGREGAR LOS DATOS DE PROVEEDORES 1
 CREATE OR REPLACE PROCEDURE AGREGAR_PROVEEDOR(ID_PRO IN NUMBER,NOMBRE IN VARCHAR2,
 PAPELLIDO IN VARCHAR2,SAPELLIDO IN VARCHAR2, TELEFONO IN NUMBER,CORREO IN VARCHAR2,
 ESTADO IN VARCHAR2)
@@ -401,7 +401,7 @@ END;
 
 --PRUEBA DEL PROCEDIMIENO
 EXEC AGREGAR_PROVEEDOR(2,'JUAN','MORA','ABARCA',24101726,'ROBERTO@GMAIL.COM','ACTIVO');
---PROCEDIMIENTO PARA AGREGAR LOS DATOSDE INGREDIENTES
+--2-PROCEDIMIENTO PARA AGREGAR LOS DATOS DE INGREDIENTES 1
 CREATE OR REPLACE PROCEDURE AGREGAR_INGREDIENTE(ID_INGREDIENTE IN NUMBER,NOMBRE IN VARCHAR2,
 UNIDAD IN VARCHAR2, PRECIO NUMBER,CANTIDAD IN NUMBER,ID_PROVEEDOR IN NUMBER)
 AS
@@ -413,7 +413,8 @@ END;
 --PRUEBA DEL PROCEDIMIENO
 EXEC AGREGAR_INGREDIENTE(1,'AZUCAR','KILOGRAMOS',700,2,2);
 SELECT * FROM INGREDIENTES;
---PROCEDIMIENTO PARA ACTUALIZAR EL PRECIO DE UN INGREDIENTE
+
+--3-PROCEDIMIENTO PARA ACTUALIZAR EL PRECIO DE UN INGREDIENTE 1
 CREATE OR REPLACE PROCEDURE ACTUALIZAR_INGREDIENTE_PRECIO(IDINGRE IN NUMBER,PRECIONUEVO IN NUMBER)
 AS
 BEGIN
@@ -423,14 +424,40 @@ END;
 EXEC ACTUALIZAR_INGREDIENTE_PRECIO(1,750);
 
 
---VISTA
+
+EXEC ELIMINAR_PROVEEDOR_ESPECIFICO(2);
+
+--4-PROCEDIEMIENTO PARA ACTUALIZAR LA CANTIDAD DE UN INGREDIENTE 2
+CREATE OR REPLACE PROCEDURE ACTUALIZAR_CANTIDAD_INGREDIENTE(ID_BUSCADO IN 
+NUMBER, CANTIDAD_NUEVA IN NUMBER)
+AS
+BEGIN
+UPDATE INGREDIENTES SET CANTIDAD=CANTIDAD_NUEVA WHERE ID_INGREDIENTE =ID_BUSCADO;
+END;
+--EJECUCION
+EXEC ACTUALIZAR_CANTIDAD_INGREDIENTE(1,4);
+
+--5-PROCEDIMIENTO PARA VER UN PROVEEDOR EN ESPECIFICO
+CREATE OR REPLACE PROCEDURE VER_PROVEEDOR_ESPECIFICO(ID_BUSCADO IN NUMBER)
+AS
+BEGIN
+SELECT * FROM PROVEEDORES WHERE PROVEEDOR_ID=ID_BUSCADO
+
+--VISTA VER TODOS LOS INGREDIENTES
 CREATE VIEW VER_INGREDIENTES AS
 SELECT * FROM INGREDIENTES ORDER BY ID_INGREDIENTE;
 
---PRUEBA VISTA
+--PRUEBA VISTA VER TODOS LOS PROVEEDORES
 SELECT * FROM  VER_INGREDIENTES;
 
---CREACION DE FUNCIONES VER CANTIDAD DE PROVEEDORES
+--VISTA VER TODOS LOS PROVEEDORES
+CREATE VIEW VER_PROVEEDORES AS
+SELECT * FROM PROVEEDORES ORDER BY ID_PROVEEDOR;
+--PRUEBA VISTA
+SELECT * FROM  VER_PROVEEDORES;
+
+
+--CREACION DE FUNCIONES
 CREATE OR REPLACE FUNCTION CANTIDAD_PROVEEDORES
 RETURN NUMBER
 IS
@@ -442,7 +469,7 @@ IS
 END;
 --PROBAR FUNCION
 SELECT CANTIDAD_PROVEEDORES FROM DUAL;
---FUNCION VER CANTIDAD DE INGREDIENTES
+
 CREATE OR REPLACE FUNCTION CANTIDAD_INGREDIENTES
 RETURN NUMBER
 IS
@@ -455,7 +482,6 @@ END;
 
 --PROBAR FUNCION
 SELECT CANTIDAD_INGREDIENTES FROM DUAL;
-
 
 
 --CREACION DE CURSOR PARA ACTUALIZAR DATOS DEL PROVEEDOR
@@ -501,6 +527,57 @@ EXEC ELIMINAR_INGREDIENTE(1);
 SELECT * FROM INGREDIENTES;
 
 
+--CURSOR ELIMINAR PROVEEDOR ESPECIFICO 2
+CREATE OR REPLACE PROCEDURE ELIMINAR_PROVEEDOR_ESPECIFICO(IDBUSCADO IN NUMBER)
+IS
+
+CURSOR ELIMINAR_PROVEEDOR IS SELECT * FROM PROVEEDORES;
+PROVEEDORES_C ELIMINAR_PROVEEDOR%ROWTYPE;
+BEGIN
+
+OPEN ELIMINAR_PROVEEDOR;
+FETCH ELIMINAR_PROVEEDOR INTO PROVEEDORES_C;
+
+DELETE FROM  PROVEEDORES WHERE ID_PROVEEDOR=IDBUSCADO;
+END;
+--PROVAR CURSOR
+EXEC ELIMINAR_PROVEEDOR_ESPECIFICO(2);
+SELECT * FROM PROVEEDORES;
+
+
+--CREACION DE CURSOR PARA ACTUALIZAR TODOS LOS DATOS DE UN INGREDIENTE 2
+CREATE OR REPLACE PROCEDURE ACTUALIZAR_INGREDIENTES(ID_BUSCADO IN NUMBER,NOMBRE IN VARCHAR2,
+UNIDAD IN VARCHAR2,PRECIONU IN NUMBER, CANTIDADNU IN NUMBER,ID_PROV IN NUMBER)
+IS
+
+CURSOR ACTUALIZAR_INGREDIENTE IS SELECT *
+    FROM INGREDIENTES;
+     INGREDIENTE_C ACTUALIZAR_INGREDIENTE%ROWTYPE;
+ BEGIN    
+     OPEN ACTUALIZAR_INGREDIENTE;  
+     FETCH ACTUALIZAR_INGREDIENTE INTO INGREDIENTE_C;
+        
+     UPDATE INGREDIENTES
+     SET NOMBRE_INGREDIENTE=NOMBRE, UNIDAD_MEDIDA=UNIDAD,PRECIO=PRECIONU,
+     CANTIDAD=CANTIDADNU,ID_PROVEEDOR=ID_PROV
+     WHERE ID_INGREDIENTE=ID_BUSCADO;
+       
+CLOSE ACTUALIZAR_INGREDIENTE;
+END;    
+ --PRUEBA    
+EXEC ACTUALIZAR_INGREDIENTES(1,'AZUCAR','KILOGRAMOS',750,24,'2');
+SELECT * FROM INGREDIENTES;
+
+
+
+
+
+
+--FIN PROVEEDORES E INGREDIENTES
+
+
+
+
 
 ---------------- PROCEDIMIENTOS ALMACENADOS CATEGORIAS Y PRODUCTOS ---------------
 
@@ -521,7 +598,7 @@ BEGIN
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
-EXEC ADD_CATEGORY(6, 'TestName', 'DescripciÛn de test Category');
+EXEC ADD_CATEGORY(6, 'TestName', 'Descripci√≥n de test Category');
 
 -- 2) Procedimiento para eliminar una categoria
 
@@ -550,7 +627,7 @@ BEGIN
     SET NOMBRE = p_nuevo_nombre
     WHERE ID_CATEGORIA = p_id_categoria;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('DescripciÛn de la categorÌa actualizada con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Descripci√≥n de la categor√≠a actualizada con √©xito.');
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
@@ -568,11 +645,11 @@ BEGIN
     SET DESCRIPCION = p_nueva_descripcion
     WHERE ID_CATEGORIA = p_id_categoria;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('DescripciÛn de la categorÌa actualizada con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Descripci√≥n de la categor√≠a actualizada con √©xito.');
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
-EXEC UPDATE_CATEGORY_DESCRIPTION(5, 'Nueva descripciÛn actualizada');
+EXEC UPDATE_CATEGORY_DESCRIPTION(5, 'Nueva descripci√≥n actualizada');
 
 -- SP para Productos
 
@@ -592,7 +669,7 @@ BEGIN
     INSERT INTO PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO)
     VALUES (p_id_producto, p_nombre, p_id_categoria, p_cantidad, p_descripcion, p_tamano, p_precio);
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Producto agregado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Producto agregado con √©xito.');
 END;
 
 -- 2) Procedimiento para eliminar un producto.
@@ -605,7 +682,7 @@ BEGIN
     DELETE FROM PRODUCTOS
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Producto eliminado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Producto eliminado con √©xito.');
 END;
 
 -- 3) Procedimiento para actualizar la cantidad de un producto.
@@ -620,7 +697,7 @@ BEGIN
     SET CANTIDAD = p_nueva_cantidad
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con √©xito.');
 END;
 
 
@@ -636,7 +713,7 @@ BEGIN
     SET TAMANO = p_nuevo_tamano
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('TamaÒo del producto actualizado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Tama√±o del producto actualizado con √©xito.');
 END;
 
 
@@ -652,7 +729,7 @@ BEGIN
     SET PRECIO = p_nuevo_precio
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con Èxito.');
+    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con √©xito.');
 END;
 
 
@@ -699,7 +776,7 @@ RETURN VARCHAR2
 AS
     v_info_categoria VARCHAR2(200);
 BEGIN
-    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', DescripciÛn: ' || DESCRIPCION
+    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', Descripci√≥n: ' || DESCRIPCION
     INTO v_info_categoria
     FROM CATEGORIA_PRODUCTOS
     WHERE ID_CATEGORIA = p_id_categoria;
@@ -717,7 +794,7 @@ AS
     v_info_producto VARCHAR2(200);
 BEGIN
     SELECT 'ID: ' || ID_PRODUCTOS || ', Nombre: ' || NOMBRE || ', Cantidad: ' || CANTIDAD ||
-           ', DescripciÛn: ' || DESCRIPCION || ', TamaÒo: ' || TAMANO || ', Precio: ' || PRECIO
+           ', Descripci√≥n: ' || DESCRIPCION || ', Tama√±o: ' || TAMANO || ', Precio: ' || PRECIO
     INTO v_info_producto
     FROM PRODUCTOS
     WHERE ID_PRODUCTOS = p_id_producto;
@@ -742,8 +819,8 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
                            ', Nombre: ' || v_producto.NOMBRE ||
                            ', Cantidad: ' || v_producto.CANTIDAD ||
-                           ', DescripciÛn: ' || v_producto.DESCRIPCION ||
-                           ', TamaÒo: ' || v_producto.TAMANO ||
+                           ', Descripci√≥n: ' || v_producto.DESCRIPCION ||
+                           ', Tama√±o: ' || v_producto.TAMANO ||
                            ', Precio: ' || v_producto.PRECIO);
    END LOOP;
    CLOSE c_productos;
@@ -764,8 +841,8 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
                            ', Nombre: ' || v_producto.NOMBRE ||
                            ', Cantidad: ' || v_producto.CANTIDAD ||
-                           ', DescripciÛn: ' || v_producto.DESCRIPCION ||
-                           ', TamaÒo: ' || v_producto.TAMANO ||
+                           ', Descripci√≥n: ' || v_producto.DESCRIPCION ||
+                           ', Tama√±o: ' || v_producto.TAMANO ||
                            ', Precio: ' || v_producto.PRECIO);
    END LOOP;
    CLOSE c_productos_categoria;
@@ -789,7 +866,7 @@ BEGIN
 
    COMMIT;
 
-   DBMS_OUTPUT.PUT_LINE('Precios aumentados en un 5% para la categorÌa seleccionada.');
+   DBMS_OUTPUT.PUT_LINE('Precios aumentados en un 5% para la categor√≠a seleccionada.');
 END;
 
 -- 4) Cursor para actualizar los precios de una categoria especifica en reducirlos en un 10% en caso de un descuento promocion.
@@ -808,7 +885,7 @@ BEGIN
       WHERE ID_PRODUCTOS = producto_rec.ID_PRODUCTOS;
    END LOOP;
    COMMIT;
-   DBMS_OUTPUT.PUT_LINE('Precios reducidos en un 10% para la categorÌa seleccionada.');
+   DBMS_OUTPUT.PUT_LINE('Precios reducidos en un 10% para la categor√≠a seleccionada.');
 END;
 
 
@@ -839,7 +916,7 @@ END actualizar_compra;
 
 
 -----------------------------Vistas para COMPRAS--------------------------------
--- Vista para obtener informaciÛn detallada de las compras
+-- Vista para obtener informaci√≥n detallada de las compras
 CREATE OR REPLACE VIEW vista_compras AS
 SELECT C.ID_COMPRA, C.FECHA_COMPRA, C.ID_PROVEEDOR, P.NOMBRE_PROVEEDOR, C.ID_PRODUCTOS,
   C.CANTIDAD, C.PRECIO, C.TOTAL
@@ -850,7 +927,7 @@ JOIN PROVEEDORES P ON C.ID_PROVEEDOR = P.ID_PROVEEDOR;
 
 -----------------------------Funciones para COMPRAS-----------------------------
 
--- FunciÛn para calcular el total de todas las compras
+-- Funci√≥n para calcular el total de todas las compras
 CREATE OR REPLACE FUNCTION calcular_total_compras RETURN INT 
 AS
   v_total INT := 0;
@@ -859,7 +936,7 @@ BEGIN
   RETURN v_total;
 END calcular_total_compras;
 
--- FunciÛn para obtener el proveedor con m·s compras
+-- Funci√≥n para obtener el proveedor con m√°s compras
 CREATE OR REPLACE FUNCTION proveedor_con_mas_compras RETURN VARCHAR2 
 AS
   v_proveedor VARCHAR2(50);
@@ -895,7 +972,7 @@ END;
 
 
 
--- Cursor para obtener compras de un proveedor especÌfico
+-- Cursor para obtener compras de un proveedor espec√≠fico
 CREATE OR REPLACE PROCEDURE OBTENER_COMPRAS_POR_PROVEEDOR(p_id_proveedor IN NUMBER) IS
   CURSOR c_compras_proveedor IS
     SELECT ID_COMPRA, FECHA_COMPRA 
