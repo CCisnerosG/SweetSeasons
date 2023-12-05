@@ -1,0 +1,10 @@
+Ana Hernandez Mendez ana.mendez@gmail.com 87654321 Guanacaste
+Carlos Martinez Lopez carlos.lopez@gmail.com 65432178 Cartago
+Diego Castro Jimenez diego.jimenez@gmail.com 56781234 Limon
+Juan Gonzalez Sanchez juan.sanchez@gmail.com 12345678 Puntarenas
+Laura Ramirez Perez laura.perez@gmail.com 98761234 Alajuela
+Luis Sanchez Hernandez luis.hernandez@gmail.com 76543219 Heredia
+Maria Gomez Fernandez maria.fernandez@gmail.com 78901234 San Jose
+Monica Jimenez Ramirez monica.ramirez@gmail.com 91234567 Alajuela
+Pablo Lopez Rodriguez pablo.rodri@gmail.com 87349012 Heredia Central
+Sofia Perez Gonzalez sofia.gonzalez@gmail.com 89123456 San Jose
