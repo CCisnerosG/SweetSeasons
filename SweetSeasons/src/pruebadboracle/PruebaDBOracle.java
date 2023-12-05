@@ -9,6 +9,14 @@ import java.sql.Statement;
 public class PruebaDBOracle {
 
     public static void main(String[] args) {
+        //Para que inicie el programa
+        Inicio();
+        
+        //por si necesita hacer prueba
+        //Prueba();
+    }
+    
+    public static void Prueba(){
         ConexionBD conexion = new ConexionBD();
         String sql = "";
         
@@ -27,10 +35,7 @@ public class PruebaDBOracle {
         }catch(SQLException err){
             System.out.println("Error en la conexion: " + err.getLocalizedMessage());
         }
-        
-        Inicio();
     }
-    
     public static void Inicio() {
         frmLogin inicio = new frmLogin();
         inicio.setLocationRelativeTo(null); // Esto centra el form en la pantalla al ejecutarse.

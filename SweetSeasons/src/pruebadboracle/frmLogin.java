@@ -4,21 +4,20 @@
  */
 package pruebadboracle;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+
 import javax.swing.BorderFactory;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.border.AbstractBorder;
+import javax.swing.JPasswordField;
+
 
 
 public class frmLogin extends javax.swing.JFrame {
 
+    
     
     public frmLogin() {
         initComponents();
@@ -28,8 +27,8 @@ public class frmLogin extends javax.swing.JFrame {
             jTextField1.getBorder(),
             new RoundBorder(15)
         ));
-        jTextField2.setBorder(BorderFactory.createCompoundBorder(
-            jTextField2.getBorder(),
+        txtPass.setBorder(BorderFactory.createCompoundBorder(
+            txtPass.getBorder(),
             new RoundBorder(15)
         ));
         
@@ -77,7 +76,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtPass = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -107,7 +106,7 @@ public class frmLogin extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 204));
+        txtPass.setBackground(new java.awt.Color(255, 255, 204));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Usuario");
@@ -128,7 +127,7 @@ public class frmLogin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -149,7 +148,7 @@ public class frmLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
@@ -186,13 +185,15 @@ public class frmLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-
             String usuario = jTextField1.getText();
 
-            //char[] arrayC = jTextField2.getPassword();
-            String password = jTextField2.getText();
+//            char[] arrayC = txtPass.get
+//            String password = new String(arrayC);
+            String password = txtPass.getText();
 
             if ((usuario.length() == 0) || (password.length() == 0)) {
                 JOptionPane.showMessageDialog(null, "Si desea ingresar, debe digitar el usuario y la contraseña");
@@ -260,6 +261,6 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtPass;
     // End of variables declaration//GEN-END:variables
 }

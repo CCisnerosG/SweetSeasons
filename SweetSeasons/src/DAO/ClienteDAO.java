@@ -4,11 +4,10 @@ import Entity.Cliente;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import java.sql.Statement; // Importa la clase Statement correcta
 import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Types;
 
 /**
  *
@@ -45,39 +44,37 @@ public class ClienteDAO {
     }
 
     public String modificarCliente(Connection conn, Cliente cli) {
-        PreparedStatement cst = null;
+        CallableStatement cst = null;
 
-        String sql = "UPDATE CLIENTE SET NOMBRE = ? PRIMER_APELLIDO = ? SEGUNDO_APELLIDO = ? CORREO = ? NUMERO_TELEFONICO = ? DIRECCION = ?"
-                + "WHERE ID_CLIENTE = ?";
+        String procedureCall = "{call UPDATE_CLIENTES(?, ?, ?, ?, ?, ?, ?)}";
 
         try {
-            cst = conn.prepareStatement(sql);
+            cst = conn.prepareCall(procedureCall);
 
-            cst.setString(1, cli.getNombre());
-            cst.setString(2, cli.getPrimer_apellido());
-            cst.setString(3, cli.getSegundo_apellido());
-            cst.setString(4, cli.getCorreo());
-            cst.setInt(5, cli.getNumero_telefonico());
-            cst.setString(6, cli.getDireccion());
-
-            cst.setInt(7, cli.getId_cliente());
+            cst.setInt(1, cli.getId_cliente());
+            cst.setString(2, cli.getNombre());
+            cst.setString(3, cli.getPrimer_apellido());
+            cst.setString(4, cli.getSegundo_apellido());
+            cst.setString(5, cli.getCorreo());
+            cst.setInt(6, cli.getNumero_telefonico());
+            cst.setString(7, cli.getDireccion());
 
             mensaje = "Cliente modificado correctamente";
             cst.execute();
             cst.close();
         } catch (SQLException err) {
-            mensaje = "El cliente no se ha modificar correctamente \n Error: " + err.getMessage();
+            mensaje = "El cliente no se ha modificado correctamente \n Error: " + err.getMessage();
         }
         return mensaje;
     }
 
     public String eliminarCliente(Connection conn, int id) {
-        PreparedStatement cst = null;
+         CallableStatement cst = null;
 
-        String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE = ?";
+        String sql = "{call Ej_Func_Client(?)}";
 
         try {
-            cst = conn.prepareStatement(sql);
+            cst = conn.prepareCall(sql);
 
             cst.setInt(1, id);
 
@@ -85,36 +82,56 @@ public class ClienteDAO {
             cst.execute();
             cst.close();
         } catch (SQLException err) {
-            mensaje = "El cliente no se ha eliminar correctamente \n Error: " + err.getMessage();
+            mensaje = "El cliente no se ha eliminado correctamente \n Error: " + err.getMessage();
         }
         return mensaje;
     }
-
+    
     public void listarCliente(Connection conn, JTable tabla) {
         DefaultTableModel model;
-        String[] columnas = {"ID_CLIENTE", "NOMBRE", "PRIMER_APELLIDO", "SEGUNDO_APELLIDO", "CORREO", "NUMERO TELEFONICO", "DIRECCION"};
+        String[] columnas = {"Nombre", "Primer apellido", "Segundo apellido", "Correo", "Número de telefono", "Dirección"};
         model = new DefaultTableModel(null, columnas);
-        
-        String sql = "SELECT * FROM CLIENTE";
-        String[] filas = new String[7];
-        Statement st = null;
+
+        CallableStatement cst = null;
         ResultSet rs = null;
 
         try {
-            st = conn.createStatement();
-            rs = st.executeQuery(sql);
+            cst = conn.prepareCall("{call P_READ_CLIENTE(?)}");
+            cst.registerOutParameter(1, Types.REF_CURSOR);
+            cst.execute();
 
+            // Obtener el cursor de resultados
+            rs = (ResultSet) cst.getObject(1);
+
+            // Iterar sobre los resultados y agregarlos al modelo de la tabla
             while (rs.next()) {
-                for (int i = 0; i < 7; i++) {
-                    filas[i] = rs.getString(i + 1);
-                }
-                model.addRow(filas);
+                String nombre = rs.getString("NOMBRE");
+                String primerApellido = rs.getString("PRIMER_APELLIDO");
+                String segundoApellido = rs.getString("SEGUNDO_APELLIDO");
+                String correo = rs.getString("CORREO");
+                String numeroTelefono = rs.getString("NUMERO_TELEFONICO");
+                String direccion = rs.getString("DIRECCION");
+
+                model.addRow(new Object[]{nombre, primerApellido, segundoApellido, correo, numeroTelefono, direccion});
             }
+
             tabla.setModel(model);
+
         } catch (SQLException e) {
             System.out.println("No se puede listar la tabla");
             e.printStackTrace();
-        } 
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cst != null) {
+                    cst.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
 }

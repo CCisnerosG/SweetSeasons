@@ -17,20 +17,13 @@ public class test {
     
     String mensaje = "";
     
-    public void ingresar(){
-        cli.setId_cliente(18);
-        cli.setNombre("MaDFG");
-        cli.setPrimer_apellido("DDDF");
-        cli.setSegundo_apellido("DFGGS");
-        cli.setCorreo("jjkkok@gmail.D");
-        cli.setNumero_telefonico(34889900);
-        cli.setDireccion("Heredia");
-        mensaje = cbo.agragarCliente(cli);
+    public void Eliminar(){
+        mensaje = cbo.eliminarCliente(18);
         System.out.println(mensaje);
     }
     
     public static void main (String[] args){
         test Test =new test();
-        Test.ingresar();
+        Test.Eliminar();
     }
 }
