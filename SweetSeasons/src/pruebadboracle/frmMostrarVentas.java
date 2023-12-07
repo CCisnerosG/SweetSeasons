@@ -4,6 +4,7 @@
  */
 package pruebadboracle;
 
+import BO.VentaBO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -108,13 +109,13 @@ public class frmMostrarVentas extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID Venta", "Fecha Venta", "ID Cliente", "ID Producto", "Cantidad", "Precio", "Total"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -166,8 +167,13 @@ public class frmMostrarVentas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private VentaBO vbo = new VentaBO();
+    public void listarVentas(){
+        vbo.listarVenta(jTable1);
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        listarVentas();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

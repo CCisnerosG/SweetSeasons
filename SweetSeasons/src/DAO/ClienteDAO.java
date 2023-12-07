@@ -17,7 +17,6 @@ public class ClienteDAO {
 
     private String mensaje;
 
-    //Funcion modificada para que funcione con un procedimiento almacenado
     public String agragarCliente(Connection conn, Cliente cli) {
         CallableStatement cst = null;
 

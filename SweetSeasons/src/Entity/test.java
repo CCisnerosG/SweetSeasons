@@ -4,26 +4,37 @@
  */
 package Entity;
 
-import BO.ClienteBO;
-import Entity.Cliente;
+import BO.VentaBO;
+import Entity.Venta;
+import java.util.Date;
 
 /**
  *
  * @author mfsv_
  */
 public class test {
-    ClienteBO cbo = new ClienteBO();
-    Cliente cli = new Cliente();
+    VentaBO vbo = new VentaBO();
+    Venta ven = new Venta();
     
     String mensaje = "";
     
-    public void Eliminar(){
-        mensaje = cbo.eliminarCliente(18);
+    Date fecha = new Date();
+    
+    public void Modificar(){
+//        Date date = new Date();
+
+//        long timeInMilliSeconds = date.getTime();
+//        java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
+//
+//        System.out.println("SQL Date: " + date1);
+        
+        mensaje = vbo.eliminarVenta(16);
         System.out.println(mensaje);
     }
     
     public static void main (String[] args){
         test Test =new test();
-        Test.Eliminar();
+        Test.Modificar();
     }
+    
 }
