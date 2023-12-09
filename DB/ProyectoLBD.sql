@@ -203,11 +203,11 @@ values (20, 'Pastel Selva Negra', 4, 18, 'Pastel con capas de chocolate y cereza
 --Proveedores
 -- Insertar proveedor 1
 INSERT INTO PROVEEDORES (ID_PROVEEDOR, NOMBRE_PROVEEDOR, PRIMER_APELLIDO, SEGUNDO_APELLIDO, NUMERO_TELEFONICO, CORREO_ELECTRONICO, ESTADO)
-VALUES (1, 'Juan', 'Gómez', 'López', 123456789, 'juan.gomez@hotmail.com', 'Activo');
+VALUES (1, 'Juan', 'GÃ³mez', 'LÃ³pez', 123456789, 'juan.gomez@hotmail.com', 'Activo');
 INSERT INTO PROVEEDORES (ID_PROVEEDOR, NOMBRE_PROVEEDOR, PRIMER_APELLIDO, SEGUNDO_APELLIDO, NUMERO_TELEFONICO, CORREO_ELECTRONICO, ESTADO)
-VALUES (2, 'María', 'Hernández', 'Martínez', 987654321, 'maria.hernandez@gmail.com', 'Inactivo');
+VALUES (2, 'MarÃ­a', 'HernÃ¡ndez', 'MartÃ­nez', 987654321, 'maria.hernandez@gmail.com', 'Inactivo');
 INSERT INTO PROVEEDORES (ID_PROVEEDOR, NOMBRE_PROVEEDOR, PRIMER_APELLIDO, SEGUNDO_APELLIDO, NUMERO_TELEFONICO, CORREO_ELECTRONICO, ESTADO)
-VALUES (3, 'Pedro', 'Díaz', 'García', 555555555, 'pedro.diaz@hotmail.com', 'Activo');
+VALUES (3, 'Pedro', 'DÃ­az', 'GarcÃ­a', 555555555, 'pedro.diaz@hotmail.com', 'Activo');
 
 --Compras
 INSERT INTO COMPRAS (ID_COMPRA, FECHA_COMPRA, ID_PROVEEDOR, ID_PRODUCTOS, CANTIDAD, PRECIO, TOTAL)
@@ -373,7 +373,7 @@ CREATE OR REPLACE PROCEDURE Ej_Func_Vent(IDE NUMBER)
 IS
     resultado VARCHAR2(100);
 BEGIN
-    resultado := DELETE_VENTAS(IDE); -- Llama a la funciÃ³n DELETE_VENTAS
+    resultado := DELETE_VENTAS(IDE); -- Llama a la funciÃÂ³n DELETE_VENTAS
     DBMS_OUTPUT.PUT_LINE(resultado);
 END;
 
@@ -630,7 +630,7 @@ BEGIN
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
-EXEC ADD_CATEGORY(6, 'TestName', 'Descripción de test Category');
+EXEC ADD_CATEGORY(6, 'TestName', 'DescripciÃ³n de test Category');
 
 -- 2) Procedimiento para eliminar una categoria
 
@@ -659,7 +659,7 @@ BEGIN
     SET NOMBRE = p_nuevo_nombre
     WHERE ID_CATEGORIA = p_id_categoria;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Descripción de la categoría actualizada con éxito.');
+    DBMS_OUTPUT.PUT_LINE('DescripciÃ³n de la categorÃ­a actualizada con Ã©xito.');
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
@@ -677,11 +677,11 @@ BEGIN
     SET DESCRIPCION = p_nueva_descripcion
     WHERE ID_CATEGORIA = p_id_categoria;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Descripción de la categoría actualizada con éxito.');
+    DBMS_OUTPUT.PUT_LINE('DescripciÃ³n de la categorÃ­a actualizada con Ã©xito.');
 END;
 
 /* El siguiente EXEC para testeo nada mas! */
-EXEC UPDATE_CATEGORY_DESCRIPTION(5, 'Nueva descripción actualizada');
+EXEC UPDATE_CATEGORY_DESCRIPTION(5, 'Nueva descripciÃ³n actualizada');
 
 -- SP para Productos
 
@@ -701,7 +701,7 @@ BEGIN
     INSERT INTO PRODUCTOS (ID_PRODUCTOS, NOMBRE, ID_CATEGORIA, CANTIDAD, DESCRIPCION, TAMANO, PRECIO)
     VALUES (p_id_producto, p_nombre, p_id_categoria, p_cantidad, p_descripcion, p_tamano, p_precio);
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Producto agregado con éxito.');
+    DBMS_OUTPUT.PUT_LINE('Producto agregado con Ã©xito.');
 END;
 
 -- 2) Procedimiento para eliminar un producto.
@@ -714,7 +714,7 @@ BEGIN
     DELETE FROM PRODUCTOS
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Producto eliminado con éxito.');
+    DBMS_OUTPUT.PUT_LINE('Producto eliminado con Ã©xito.');
 END;
 
 -- 3) Procedimiento para actualizar la cantidad de un producto.
@@ -729,7 +729,7 @@ BEGIN
     SET CANTIDAD = p_nueva_cantidad
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con éxito.');
+    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con Ã©xito.');
 END;
 
 
@@ -745,7 +745,7 @@ BEGIN
     SET TAMANO = p_nuevo_tamano
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Tamaño del producto actualizado con éxito.');
+    DBMS_OUTPUT.PUT_LINE('TamaÃ±o del producto actualizado con Ã©xito.');
 END;
 
 
@@ -761,7 +761,7 @@ BEGIN
     SET PRECIO = p_nuevo_precio
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con éxito.');
+    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con Ã©xito.');
 END;
 
 
@@ -808,7 +808,7 @@ RETURN VARCHAR2
 AS
     v_info_categoria VARCHAR2(200);
 BEGIN
-    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', Descripción: ' || DESCRIPCION
+    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', DescripciÃ³n: ' || DESCRIPCION
     INTO v_info_categoria
     FROM CATEGORIA_PRODUCTOS
     WHERE ID_CATEGORIA = p_id_categoria;
@@ -826,7 +826,7 @@ AS
     v_info_producto VARCHAR2(200);
 BEGIN
     SELECT 'ID: ' || ID_PRODUCTOS || ', Nombre: ' || NOMBRE || ', Cantidad: ' || CANTIDAD ||
-           ', Descripción: ' || DESCRIPCION || ', Tamaño: ' || TAMANO || ', Precio: ' || PRECIO
+           ', DescripciÃ³n: ' || DESCRIPCION || ', TamaÃ±o: ' || TAMANO || ', Precio: ' || PRECIO
     INTO v_info_producto
     FROM PRODUCTOS
     WHERE ID_PRODUCTOS = p_id_producto;
@@ -851,8 +851,8 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
                            ', Nombre: ' || v_producto.NOMBRE ||
                            ', Cantidad: ' || v_producto.CANTIDAD ||
-                           ', Descripción: ' || v_producto.DESCRIPCION ||
-                           ', Tamaño: ' || v_producto.TAMANO ||
+                           ', DescripciÃ³n: ' || v_producto.DESCRIPCION ||
+                           ', TamaÃ±o: ' || v_producto.TAMANO ||
                            ', Precio: ' || v_producto.PRECIO);
    END LOOP;
    CLOSE c_productos;
@@ -873,8 +873,8 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('ID: ' || v_producto.ID_PRODUCTOS ||
                            ', Nombre: ' || v_producto.NOMBRE ||
                            ', Cantidad: ' || v_producto.CANTIDAD ||
-                           ', Descripción: ' || v_producto.DESCRIPCION ||
-                           ', Tamaño: ' || v_producto.TAMANO ||
+                           ', DescripciÃ³n: ' || v_producto.DESCRIPCION ||
+                           ', TamaÃ±o: ' || v_producto.TAMANO ||
                            ', Precio: ' || v_producto.PRECIO);
    END LOOP;
    CLOSE c_productos_categoria;
@@ -898,7 +898,7 @@ BEGIN
 
    COMMIT;
 
-   DBMS_OUTPUT.PUT_LINE('Precios aumentados en un 5% para la categoría seleccionada.');
+   DBMS_OUTPUT.PUT_LINE('Precios aumentados en un 5% para la categorÃ­a seleccionada.');
 END;
 
 -- 4) Cursor para actualizar los precios de una categoria especifica en reducirlos en un 10% en caso de un descuento promocion.
@@ -917,7 +917,7 @@ BEGIN
       WHERE ID_PRODUCTOS = producto_rec.ID_PRODUCTOS;
    END LOOP;
    COMMIT;
-   DBMS_OUTPUT.PUT_LINE('Precios reducidos en un 10% para la categoría seleccionada.');
+   DBMS_OUTPUT.PUT_LINE('Precios reducidos en un 10% para la categorÃ­a seleccionada.');
 END;
 
 
@@ -948,7 +948,7 @@ END actualizar_compra;
 
 
 -----------------------------Vistas para COMPRAS--------------------------------
--- Vista para obtener información detallada de las compras
+-- Vista para obtener informaciÃ³n detallada de las compras
 CREATE OR REPLACE VIEW vista_compras AS
 SELECT C.ID_COMPRA, C.FECHA_COMPRA, C.ID_PROVEEDOR, P.NOMBRE_PROVEEDOR, C.ID_PRODUCTOS,
   C.CANTIDAD, C.PRECIO, C.TOTAL
@@ -959,7 +959,7 @@ JOIN PROVEEDORES P ON C.ID_PROVEEDOR = P.ID_PROVEEDOR;
 
 -----------------------------Funciones para COMPRAS-----------------------------
 
--- Función para calcular el total de todas las compras
+-- FunciÃ³n para calcular el total de todas las compras
 CREATE OR REPLACE FUNCTION calcular_total_compras RETURN INT 
 AS
   v_total INT := 0;
@@ -968,7 +968,7 @@ BEGIN
   RETURN v_total;
 END calcular_total_compras;
 
--- Función para obtener el proveedor con más compras
+-- FunciÃ³n para obtener el proveedor con mÃ¡s compras
 CREATE OR REPLACE FUNCTION proveedor_con_mas_compras RETURN VARCHAR2 
 AS
   v_proveedor VARCHAR2(50);
@@ -1004,7 +1004,7 @@ END;
 
 
 
--- Cursor para obtener compras de un proveedor específico
+-- Cursor para obtener compras de un proveedor especÃ­fico
 CREATE OR REPLACE PROCEDURE OBTENER_COMPRAS_POR_PROVEEDOR(p_id_proveedor IN NUMBER) IS
   CURSOR c_compras_proveedor IS
     SELECT ID_COMPRA, FECHA_COMPRA 
@@ -1083,7 +1083,7 @@ CREATE OR REPLACE TRIGGER tr_after_update_cliente
 AFTER UPDATE ON cliente
 FOR EACH ROW
 BEGIN
-    DBMS_OUTPUT.PUT_LINE('Información actualizada para el cliente ' || :NEW.id_cliente);
+    DBMS_OUTPUT.PUT_LINE('InformaciÃ³n actualizada para el cliente ' || :NEW.id_cliente);
 END;
 --para probar
 UPDATE CLIENTE SET CORREO = 'pablo_loro12@gmail.com' WHERE ID_CLIENTE = 1;
@@ -1093,10 +1093,10 @@ CREATE OR REPLACE TRIGGER tr_after_update_proveedor
 AFTER UPDATE ON proveedores
 FOR EACH ROW
 BEGIN
-    DBMS_OUTPUT.PUT_LINE('Información actualizada para el proveedor ' || :NEW.id_proveedor);
+    DBMS_OUTPUT.PUT_LINE('InformaciÃ³n actualizada para el proveedor ' || :NEW.id_proveedor);
 END;
 
---5. Trigger que impide vender algo con cantidad 0
+--5. Trigger que menciona que no se vender algo con cantidad 0
 CREATE OR REPLACE TRIGGER tr_before_insert_venta
 BEFORE INSERT ON ventas
 FOR EACH ROW
@@ -1108,6 +1108,50 @@ END;
 --para probar
 INSERT INTO VENTAS (ID_VENTA,FECHA_VENTA,CANTIDAD,PRECIO,ID_CLIENTE,ID_PRODUCTOS) 
 VALUES (11,'21-NOV-23',0,10500,1,1);
+
+--------Cursores extras de clientes y proveedores -----------------
+--CURSOR PARA CALCULAR LA CANTIDAD TOTAL DE VENTAS HECHAS A UN CLIENTE
+CREATE OR REPLACE PROCEDURE compras_cliente(p_cliente_id NUMBER) AS
+    v_total_compras NUMBER := 0;
+
+    CURSOR compras_cursor IS
+        SELECT precio
+        FROM ventas
+        WHERE id_cliente = p_cliente_id;
+
+BEGIN
+    v_total_compras := 0;
+
+    FOR compra_rec IN compras_cursor LOOP
+        v_total_compras := v_total_compras + compra_rec.precio;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('El cliente ' || p_cliente_id || ' ha gastado un total de ' || v_total_compras || ' en compras.');
+END;
+
+EXEC compras_cliente(1);
+
+--CURSOR PARA CALCULAR LA CANTIDAD TOTAL DE COMPRAS HECHAS A UN PROVEEDOR
+CREATE OR REPLACE PROCEDURE compras_proveedor(p_id_proveedor NUMBER) AS
+    v_total_compras NUMBER := 0;
+
+    CURSOR compras_cursor IS
+        SELECT total
+        FROM compras
+        WHERE id_proveedor = p_id_proveedor;
+
+BEGIN
+    v_total_compras := 0;
+
+    FOR compra_rec IN compras_cursor LOOP
+        v_total_compras := v_total_compras + compra_rec.total;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Se le ha comprado al proveedor ' || p_id_proveedor || ' un total de ' || v_total_compras || ' en compras.');
+END;
+
+EXEC compras_proveedor(1);
+
 
 /* ------- VISTA   */
 
@@ -1354,7 +1398,7 @@ CREATE OR REPLACE PACKAGE BODY PAQUETE_INVENTARIO AS
     SET CANTIDAD = p_nueva_cantidad
     WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con �xito.');
+    DBMS_OUTPUT.PUT_LINE('Cantidad del producto actualizada con éxito.');
   END UPDATE_PRODUCTOS_CANTIDAD;
 
   FUNCTION VIEW_CATEGORY_CANT_DISPONIBLE RETURN SYS_REFCURSOR IS
@@ -1443,7 +1487,7 @@ CREATE OR REPLACE PACKAGE BODY PAQUETE_PROVEEDORES AS
   PROCEDURE VER_PROVEEDOR_ESPECIFICO (ID_BUSCADO IN NUMBER) AS
   BEGIN
     FOR PROVEEDOR_C IN (SELECT * FROM PROVEEDORES WHERE ID_PROVEEDOR = ID_BUSCADO) LOOP
-      -- Hacer algo con la informaci�n del proveedor (por ejemplo, imprimir en la salida)
+      -- Hacer algo con la información del proveedor (por ejemplo, imprimir en la salida)
       DBMS_OUTPUT.PUT_LINE(PROVEEDOR_C.ID_PROVEEDOR || ' ' || PROVEEDOR_C.NOMBRE_PROVEEDOR || ' ' ||
                            PROVEEDOR_C.PRIMER_APELLIDO || ' ' || PROVEEDOR_C.SEGUNDO_APELLIDO || ' ' ||
                            PROVEEDOR_C.NUMERO_TELEFONICO || ' ' || PROVEEDOR_C.CORREO_ELECTRONICO || ' ' ||
@@ -1727,7 +1771,7 @@ CREATE OR REPLACE PACKAGE BODY PAQUETE_UPDATE_PRECIOS AS
   BEGIN
     UPDATE PRODUCTOS SET PRECIO = p_nuevo_precio WHERE ID_PRODUCTOS = p_id_producto;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con �xito.');
+    DBMS_OUTPUT.PUT_LINE('Precio del producto actualizado con éxito.');
   END UPDATE_PRODUCTOS_PRECIO;
 END PAQUETE_UPDATE_PRECIOS;
 /
@@ -1755,7 +1799,7 @@ CREATE OR REPLACE PACKAGE BODY PAQUETE_INFO_PRODUCTOS AS
   ) RETURN VARCHAR2 AS
     v_info_categoria VARCHAR2(200);
   BEGIN
-    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', Descripci�n: ' || DESCRIPCION
+    SELECT 'ID: ' || ID_CATEGORIA || ', Nombre: ' || NOMBRE || ', Descripción: ' || DESCRIPCION
     INTO v_info_categoria
     FROM CATEGORIA_PRODUCTOS
     WHERE ID_CATEGORIA = p_id_categoria;
@@ -1769,7 +1813,7 @@ CREATE OR REPLACE PACKAGE BODY PAQUETE_INFO_PRODUCTOS AS
     v_info_producto VARCHAR2(200);
   BEGIN
     SELECT 'ID: ' || ID_PRODUCTOS || ', Nombre: ' || NOMBRE || ', Cantidad: ' || CANTIDAD ||
-           ', Descripci�n: ' || DESCRIPCION || ', Tama�o: ' || TAMANO || ', Precio: ' || PRECIO
+           ', Descripción: ' || DESCRIPCION || ', Tamaño: ' || TAMANO || ', Precio: ' || PRECIO
     INTO v_info_producto
     FROM PRODUCTOS
     WHERE ID_PRODUCTOS = p_id_producto;
@@ -1875,7 +1919,7 @@ CREATE OR REPLACE PACKAGE BODY PAQUETE_ADMIN_CATEGORIAS AS
     SET NOMBRE = p_nuevo_nombre
     WHERE ID_CATEGORIA = p_id_categoria;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Descripci�n de la categor�a actualizada con �xito.');
+    DBMS_OUTPUT.PUT_LINE('Descripción de la categoría actualizada con éxito.');
   END UPDATE_CATEGORY_NAME;
 END PAQUETE_ADMIN_CATEGORIAS;
 /
@@ -1885,7 +1929,7 @@ END PAQUETE_ADMIN_CATEGORIAS;
 
 
 -- 1)
--- Trigger para impedir la eliminaci�n si la cantidad es mayor a 0
+-- Trigger para impedir la eliminación si la cantidad es mayor a 0
 
 CREATE OR REPLACE TRIGGER TRG_EVITAR_ELIMINACION
 BEFORE DELETE ON INGREDIENTES
@@ -1898,7 +1942,7 @@ END;
 /
 
 
--- 2) Trigger para Impedir Eliminaci�n de Categor�as con Productos Asociados
+-- 2) Trigger para Impedir Eliminación de Categorías con Productos Asociados
 
 CREATE OR REPLACE TRIGGER TRG_PREVENIR_ELIMINACION_CATEGORIA
 BEFORE DELETE ON CATEGORIA_PRODUCTOS
@@ -1911,12 +1955,12 @@ BEGIN
     WHERE ID_CATEGORIA = :OLD.ID_CATEGORIA;
 
     IF v_productos_en_categoria > 0 THEN
-        RAISE_APPLICATION_ERROR(-20001, 'No se puede eliminar una categor�a con productos asociados.');
+        RAISE_APPLICATION_ERROR(-20001, 'No se puede eliminar una categoría con productos asociados.');
     END IF;
 END;
 /
 
--- 3) Trigger para Actualizar Precio al Cambiar Tama�o del Producto
+-- 3) Trigger para Actualizar Precio al Cambiar Tamaño del Producto
 
 CREATE OR REPLACE TRIGGER TRG_ACTUALIZAR_PRECIO_POR_TAMANO
 BEFORE UPDATE OF TAMANO ON PRODUCTOS
@@ -1928,7 +1972,7 @@ BEGIN
 END;
 
 
--- 4) Trigger para impedir la inserci�n de un ingrediente con cantidad negativa:
+-- 4) Trigger para impedir la inserción de un ingrediente con cantidad negativa:
 
 CREATE OR REPLACE TRIGGER TRG_EVITAR_INSERCION
 BEFORE INSERT ON INGREDIENTES
