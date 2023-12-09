@@ -1024,6 +1024,90 @@ BEGIN
   CLOSE c_compras_proveedor;
 END;
 
+-------------------------------------------------TRIGGERS-------------------------------------------------------------
+--table para registrar el trigger de actuilizar precios de productos
+CREATE TABLE historial_precios (
+    cambio_id INT GENERATED ALWAYS AS IDENTITY,
+    id_productos INT,
+    precio_anterior DECIMAL(20, 0),
+    precio_nuevo DECIMAL(20, 0),
+    fecha_cambio TIMESTAMP,
+    PRIMARY KEY (cambio_id),
+    FOREIGN KEY (id_productos) REFERENCES productos(id_productos)
+);
+
+--1. Trigger que registra datos al actualizar el precio de un producto
+CREATE OR REPLACE TRIGGER tr_before_update_precio
+BEFORE UPDATE ON productos
+FOR EACH ROW
+BEGIN
+    IF :NEW.precio <> :OLD.precio THEN
+        INSERT INTO historial_precios (id_productos, precio_anterior, precio_nuevo, fecha_cambio)
+        VALUES (:OLD.id_productos, :OLD.precio, :NEW.precio, CURRENT_TIMESTAMP);
+    END IF;
+END;
+--para probar
+UPDATE productos SET precio = 7500 WHERE id_productos = 1;
+
+--table para registrar el trigger de actuilizar precios de ingredientes
+CREATE TABLE historial_precios_ing (
+    cambio_ing_id INT GENERATED ALWAYS AS IDENTITY,
+    id_ingrediente INT,
+    precio_anterior DECIMAL(20, 0),
+    precio_nuevo DECIMAL(20, 0),
+    fecha_cambio TIMESTAMP,
+    PRIMARY KEY (cambio_ing_id),
+    FOREIGN KEY (id_ingrediente) REFERENCES ingredientes(id_ingrediente)
+);
+
+--2. Trigger que registra datos al actualizar el precio de un ingredientes
+CREATE OR REPLACE TRIGGER tr_before_update_precio_ing
+BEFORE UPDATE ON ingredientes
+FOR EACH ROW
+BEGIN
+    IF :NEW.precio <> :OLD.precio THEN
+        INSERT INTO historial_precios_ing (id_ingrediente, precio_anterior, precio_nuevo, fecha_cambio)
+        VALUES (:OLD.id_ingrediente, :OLD.precio, :NEW.precio, CURRENT_TIMESTAMP);
+    END IF;
+END;
+--inseta para probar
+INSERT INTO ingredientes (id_ingrediente, nombre_ingrediente, unidad_medida, precio, cantidad, id_proveedor)
+VALUES (1,'Harina','5 kilos',8000,2,1);
+--prueba
+UPDATE ingredientes SET precio = 8500 WHERE id_ingrediente = 1;
+
+
+SET SERVEROUTPUT ON
+--3. trigger que notifica las actualizaciones de un cliente
+CREATE OR REPLACE TRIGGER tr_after_update_cliente
+AFTER UPDATE ON cliente
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Información actualizada para el cliente ' || :NEW.id_cliente);
+END;
+--para probar
+UPDATE CLIENTE SET CORREO = 'pablo_loro12@gmail.com' WHERE ID_CLIENTE = 1;
+
+--4. trigger que notifica las actualizaciones de un proveedor
+CREATE OR REPLACE TRIGGER tr_after_update_proveedor
+AFTER UPDATE ON proveedores
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Información actualizada para el proveedor ' || :NEW.id_proveedor);
+END;
+
+--5. Trigger que impide vender algo con cantidad 0
+CREATE OR REPLACE TRIGGER tr_before_insert_venta
+BEFORE INSERT ON ventas
+FOR EACH ROW
+BEGIN
+    IF :NEW.cantidad = 0 THEN
+        DBMS_OUTPUT.PUT_LINE( 'No se puede vender un producto con cantidad igual a 0.');
+    END IF;
+END;
+--para probar
+INSERT INTO VENTAS (ID_VENTA,FECHA_VENTA,CANTIDAD,PRECIO,ID_CLIENTE,ID_PRODUCTOS) 
+VALUES (11,'21-NOV-23',0,10500,1,1);
 
 /* ------- VISTA   */
 
