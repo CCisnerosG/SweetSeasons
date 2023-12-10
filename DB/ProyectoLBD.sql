@@ -1197,6 +1197,202 @@ ORDER BY
 -- Para probar a la vista
 SELECT * FROM CLIENTES_FRECUENTES;
 
+--------------------------------Funciones--------------------------------
+--1. Calcular Impuesto sobre la Venta
+CREATE OR REPLACE FUNCTION calcular_impuesto_venta(id_pro NUMBER) 
+RETURN NUMBER IS
+    p_monto_total NUMBER;
+    v_impuesto NUMBER;
+BEGIN
+    SELECT precio INTO p_monto_total FROM productos  WHERE id_productos = id_pro;
+    v_impuesto := p_monto_total * 0.13; --IVA 
+    RETURN v_impuesto;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_calcular_impuesto(IDE VARCHAR2)
+IS
+    resultado NUMBER;
+BEGIN
+    resultado := calcular_impuesto_venta(IDE); 
+    DBMS_OUTPUT.PUT_LINE('El iva del producto es de ' || resultado);
+END;
+
+EXEC Ej_calcular_impuesto(1);
+
+--2. Cant. de pedidos hechos por un cliente
+CREATE OR REPLACE FUNCTION obtener_total_pedidos_cliente(p_id_cliente NUMBER) 
+RETURN NUMBER IS
+    v_total_pedidos NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO v_total_pedidos
+    FROM ventas
+    WHERE id_cliente = p_id_cliente;
+
+    RETURN v_total_pedidos;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_pedidos_cliente(IDE VARCHAR2)
+IS
+    resultado NUMBER;
+BEGIN
+    resultado := obtener_total_pedidos_cliente(IDE); 
+    DBMS_OUTPUT.PUT_LINE('El total de ventas hechas al cliente es de  ' || resultado);
+END;
+
+EXEC Ej_pedidos_cliente(1);
+
+--2. Cant. de pedidos hechos a un proveedor
+CREATE OR REPLACE FUNCTION obtener_total_pedidos_proveedor(p_id_productos NUMBER) 
+RETURN NUMBER IS
+    v_total_pedidos NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO v_total_pedidos
+    FROM compras
+    WHERE id_productos = p_id_productos;
+
+    RETURN v_total_pedidos;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_pedidos_proveedor(IDE VARCHAR2)
+IS
+    resultado NUMBER;
+BEGIN
+    resultado := obtener_total_pedidos_proveedor(IDE); 
+    DBMS_OUTPUT.PUT_LINE('El total de compras hechas al proveedor es de  ' || resultado);
+END;
+
+EXEC Ej_pedidos_proveedor(1);
+
+--3. calcular Precio Final con Descuento
+CREATE OR REPLACE FUNCTION calcular_precio_final(id_pro NUMBER,p_descuento NUMBER) 
+RETURN NUMBER IS
+    v_precio_final NUMBER;
+    p_precio_base NUMBER;
+BEGIN
+    SELECT precio INTO p_precio_base FROM productos  WHERE id_productos = id_pro;
+    v_precio_final := p_precio_base * (1 - p_descuento);
+    RETURN v_precio_final;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_calcular_precio_final(IDE NUMBER, DES NUMBER)
+IS
+    resultado NUMBER;
+BEGIN
+    resultado := calcular_precio_final(IDE,DES); 
+    DBMS_OUTPUT.PUT_LINE('El precio total del producto con un descuento es de ' || resultado);
+END;
+
+EXEC Ej_calcular_precio_final(1,0.2);
+
+--4. precio de la venta por compra al por mayor
+CREATE OR REPLACE FUNCTION precio_por_mayor(id_ven  NUMBER) 
+RETURN NUMBER IS
+    v_precio_final NUMBER;
+    p_precio_base NUMBER;
+BEGIN
+    SELECT precio INTO p_precio_base FROM ventas  WHERE id_venta = id_ven AND cantidad >= 12;
+    v_precio_final := p_precio_base * (1 - 0.10);
+    RETURN v_precio_final;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_precio_por_mayor(IDE NUMBER)
+IS
+    resultado NUMBER;
+BEGIN
+    resultado := precio_por_mayor(IDE); 
+    DBMS_OUTPUT.PUT_LINE('El precio total de la venta con descuento por mayor es de ' || resultado);
+END;
+
+EXEC Ej_precio_por_mayor(1);
+
+--5. disponibilidad de un producto
+CREATE OR REPLACE FUNCTION disponibilidad_producto(id_pro NUMBER) 
+RETURN VARCHAR2 IS
+    disponible VARCHAR2(45);
+    cant number;
+BEGIN
+    SELECT cantidad INTO cant FROM productos WHERE id_productos = id_pro;
+    
+    IF cant>0 THEN
+        disponible:='Si hay productos disponibles';
+    ELSE
+        disponible:='No hay productos disponibles';
+    END IF;
+    
+    RETURN disponible;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_disponibilidad_producto(IDE NUMBER)
+IS
+    resultado VARCHAR2 (45);
+BEGIN
+    resultado := disponibilidad_producto(IDE); 
+    DBMS_OUTPUT.PUT_LINE(resultado);
+END;
+
+EXEC Ej_disponibilidad_producto(1);
+
+--6. disponibilidad de un ingrediente
+CREATE OR REPLACE FUNCTION disponibilidad_ingrediente(id_ing NUMBER) 
+RETURN VARCHAR2 IS
+    disponible VARCHAR2(45);
+    cant number;
+BEGIN
+    SELECT cantidad INTO cant FROM ingredientes WHERE id_ingrediente = id_ing;
+    
+    IF cant>0 THEN
+        disponible:='Si hay ingredientes disponibles';
+    ELSE
+        disponible:='No hay ingredientes disponibles';
+    END IF;
+    
+    RETURN disponible;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_disponibilidad_ingrediente(IDE NUMBER)
+IS
+    resultado VARCHAR2 (45);
+BEGIN
+    resultado := disponibilidad_ingrediente(IDE); 
+    DBMS_OUTPUT.PUT_LINE(resultado);
+END;
+
+EXEC Ej_disponibilidad_ingrediente(1);
+
+--7. consultar e imprimir categoria de un producto
+CREATE OR REPLACE FUNCTION consult_categoria_producto(id_pro NUMBER) 
+RETURN VARCHAR2 IS
+    p_nom VARCHAR2(45);
+    c_nom VARCHAR2(45);
+    resultado VARCHAR2(100);
+BEGIN
+    SELECT p.nombre, c.nombre 
+    INTO p_nom, c_nom 
+    FROM productos p 
+    JOIN CATEGORIA_PRODUCTOS c ON p.id_categoria = c.id_categoria
+    WHERE id_productos = id_pro;
+    
+    resultado := 'El producto ' || p_nom || ' pertenece a la categoria ' || c_nom;
+    RETURN resultado;
+END;
+
+--ejec
+CREATE OR REPLACE PROCEDURE Ej_consult_categoria_producto(IDE NUMBER)
+IS
+    resultado VARCHAR2 (100);
+BEGIN
+    resultado := consult_categoria_producto(IDE); 
+    DBMS_OUTPUT.PUT_LINE(resultado);
+END;
+
+EXEC Ej_consult_categoria_producto(1);
 
 
 /*  -------------- CREACION DE PAQUETES ------------------*/
