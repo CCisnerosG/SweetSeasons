@@ -11,9 +11,13 @@ public class ConexionBD {
    private final String url = "jdbc:oracle:thin:@192.168.0.11:1521:ORCLDB"; //Ip MV Carlos 
     //private final String url = "jdbc:oracle:thin:@192.168.1.24:1521:orcldb"; //IP MV ANDY
     //private final String url = "jdbc:oracle:thin:@192.168.56.101:1521:orcl"; //Ip MV Ma Fer
+    //private final String url = "jdbc:oracle:thin:@localhost:1521:orcl19c"; //Localhost a Local Ricardo
     private final String user = "ProyectoSS";
     //private final String pass = "OracleUwu"; //Mv Ma Fer
     private final String pass = "1234"; //Mv Carlos
+    
+    //private final String user = "ESTUDIANTE";
+   // private final String pass = "Rach123";
     
     public Connection cadena;
     
