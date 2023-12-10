@@ -4,6 +4,7 @@
  */
 package pruebadboracle;
 
+import BO.CompraBO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -28,6 +29,11 @@ public class frmMostrarCompras extends javax.swing.JFrame {
             new frmMostrarCompras.RoundBorder(5)
         ));
         
+    }
+    
+    private CompraBO cbo = new CompraBO();
+    public void listarCompras (){
+        cbo.listarCompra(jtCompra);
     }
     
     private void cambiarColorJMenuBar(String colorHex) {
@@ -79,7 +85,7 @@ public class frmMostrarCompras extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtCompra = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -105,7 +111,7 @@ public class frmMostrarCompras extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -116,7 +122,7 @@ public class frmMostrarCompras extends javax.swing.JFrame {
                 "ID Compra", "Fecha Compra", "ID Proveedor", "ID Producto", "Cantidad", "Precio", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtCompra);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,7 +172,7 @@ public class frmMostrarCompras extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       listarCompras();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -228,6 +234,6 @@ public class frmMostrarCompras extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtCompra;
     // End of variables declaration//GEN-END:variables
 }

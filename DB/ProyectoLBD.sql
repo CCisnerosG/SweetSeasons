@@ -946,9 +946,19 @@ BEGIN
   WHERE ID_COMPRA = p_id_compra;
 END actualizar_compra;
 
+--Procedimiento para llamar la funcion de eliminar
+CREATE OR REPLACE PROCEDURE EJ_FUNC_COMPRA(P_ID_COMPRA IN NUMBER)
+IS
+    V_RESULTADO VARCHAR2(100);
+BEGIN
+    V_RESULTADO := DELETE_COMPRA(P_ID_COMPRA);
+    DBMS_OUTPUT.PUT_LINE(V_RESULTADO);
+END;
+
+
 
 -----------------------------Vistas para COMPRAS--------------------------------
--- Vista para obtener informaciÃ³n detallada de las compras
+-- Vista para obtener informacion detallada de las compras
 CREATE OR REPLACE VIEW vista_compras AS
 SELECT C.ID_COMPRA, C.FECHA_COMPRA, C.ID_PROVEEDOR, P.NOMBRE_PROVEEDOR, C.ID_PRODUCTOS,
   C.CANTIDAD, C.PRECIO, C.TOTAL
@@ -959,7 +969,7 @@ JOIN PROVEEDORES P ON C.ID_PROVEEDOR = P.ID_PROVEEDOR;
 
 -----------------------------Funciones para COMPRAS-----------------------------
 
--- FunciÃ³n para calcular el total de todas las compras
+-- Funcion para calcular el total de todas las compras
 CREATE OR REPLACE FUNCTION calcular_total_compras RETURN INT 
 AS
   v_total INT := 0;
@@ -983,6 +993,15 @@ BEGIN
   RETURN v_proveedor;
 END proveedor_con_mas_compras;
 
+--Funcion para eliminar compra
+CREATE OR REPLACE FUNCTION DELETE_COMPRA(P_ID_COMPRA IN NUMBER) RETURN VARCHAR2
+IS
+    V_RESULT VARCHAR2(100);
+BEGIN
+    DELETE FROM COMPRAS
+    WHERE ID_COMPRA = P_ID_COMPRA;
+    RETURN 'Compra eliminada correctamente.';
+END;
 
 -----------------------------Cursores para COMPRAS-----------------------------
 
