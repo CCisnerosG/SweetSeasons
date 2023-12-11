@@ -92,7 +92,7 @@ public class CompraDAO {
         ResultSet rs = null;
 
         try {
-            cst = conn.prepareCall("{? = call READ_ALL_PURCHASES}");
+            cst = conn.prepareCall("{? = call READ_COMPRAS}");
 
             cst.registerOutParameter(1, Types.REF_CURSOR);
 
