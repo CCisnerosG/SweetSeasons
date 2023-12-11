@@ -4,6 +4,11 @@
  */
 package pruebadboracle;
 
+import javax.swing.JOptionPane;
+import BO.IngredienteBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class frmEliminarIngrediente extends javax.swing.JFrame {
 
@@ -27,7 +32,7 @@ public class frmEliminarIngrediente extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        IDBUSCADO = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -68,7 +73,7 @@ public class frmEliminarIngrediente extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("ID del Ingrediente");
 
-        jTextField1.setBackground(new java.awt.Color(205, 228, 247));
+        IDBUSCADO.setBackground(new java.awt.Color(205, 228, 247));
 
         jButton1.setBackground(new java.awt.Color(250, 249, 192));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -102,7 +107,7 @@ public class frmEliminarIngrediente extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addComponent(jLabel3)
                         .addGap(67, 67, 67)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(IDBUSCADO, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,7 +123,7 @@ public class frmEliminarIngrediente extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(IDBUSCADO, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,9 +165,33 @@ public class frmEliminarIngrediente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+         try {
+            if (IDBUSCADO.getText().isEmpty() ) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el id para poder eliminar el cliente");
+            }else{
+                
+                IngredienteBO cbo = new IngredienteBO();
+                int idIngrediente = Integer.parseInt(IDBUSCADO.getText());
+            
+                String mensaje = cbo.eliminarIngrediente(idIngrediente);
+                
+                JOptionPane.showMessageDialog(null, mensaje);
+                
+                limpiaCajasDeTexto();
+            }
+           
+        } catch (Exception e) {
+            Logger.getLogger(frmIngresarCliente.class.getName()).log(Level.SEVERE, null, e);
+        }
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+     public void limpiaCajasDeTexto() {
+        this.IDBUSCADO.setText("");
+     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         frmIngredientes menuIngrediente = new frmIngredientes();
@@ -212,6 +241,7 @@ public class frmEliminarIngrediente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField IDBUSCADO;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -220,6 +250,5 @@ public class frmEliminarIngrediente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
