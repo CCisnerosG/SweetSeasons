@@ -4,6 +4,12 @@
  */
 package pruebadboracle;
 
+import javax.swing.JOptionPane;
+import BO.CategoriaBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author XPC
@@ -165,9 +171,32 @@ public class frmEliminarCategoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (jTextField1.getText().isEmpty() ) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el id para poder eliminar la categoria");
+            }else{
+                
+                CategoriaBO cbo = new CategoriaBO();
+                int idCategoria = Integer.parseInt(jTextField1.getText());
+            
+                String mensaje = cbo.eliminarCategoria(idCategoria);
+                
+                JOptionPane.showMessageDialog(null, mensaje);
+                
+                limpiaCajasDeTexto();
+            }
+           
+        } catch (Exception e) {
+            Logger.getLogger(frmEliminarCategoria.class.getName()).log(Level.SEVERE, null, e);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiaCajasDeTexto() {
+        this.jTextField1.setText("");
+     }
+
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         frmCategorias menuCategorias = new frmCategorias();
