@@ -172,7 +172,7 @@ public class frmEliminarCompra extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if (id.getText().isEmpty() ) {
-                JOptionPane.showMessageDialog(null, "Debe ingresar el id para poder eliminar el cliente");
+                JOptionPane.showMessageDialog(null, "Debe ingresar el id para poder eliminar la compra");
             }else{
                 
                 CompraBO cbo = new CompraBO();

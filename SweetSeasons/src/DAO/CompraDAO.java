@@ -54,7 +54,7 @@ public class CompraDAO {
             cst.setInt(2, cli.getCantidad());
             cst.setInt(3, cli.getPrecio());
             cst.setInt(4, cli.getTotal());
-            
+
             mensaje = "Compra modificada correctamente";
             cst.execute();
             cst.close();
@@ -65,7 +65,7 @@ public class CompraDAO {
     }
 
     public String eliminarCompra(Connection conn, int id) {
-         CallableStatement cst = null;
+        CallableStatement cst = null;
 
         String sql = "{call DELETE_COMPRA(?)}";
 
@@ -82,31 +82,28 @@ public class CompraDAO {
         }
         return mensaje;
     }
-    
-    public void listarCompra(Connection conn, JTable tabla) {
+
+    public void listarCompras(Connection conn, JTable tabla) {
         DefaultTableModel model;
-        String[] columnas = {"Fecha_compra", "Cantidad", "Precio", "Total"};
+        String[] columnas = {"Información de Compra"};
         model = new DefaultTableModel(null, columnas);
 
         CallableStatement cst = null;
         ResultSet rs = null;
 
         try {
-            cst = conn.prepareCall("{call P_READ_CLIENTE(?)}");
+            cst = conn.prepareCall("{? = call READ_ALL_PURCHASES}");
+
             cst.registerOutParameter(1, Types.REF_CURSOR);
+
             cst.execute();
 
             // Obtener el cursor de resultados
             rs = (ResultSet) cst.getObject(1);
 
-            
             while (rs.next()) {
-                String fecha = rs.getString("FECHA");
-                String cantidad = rs.getString("CANTIDAD");
-                String precio = rs.getString("PRECIO");
-                String total = rs.getString("TOTAL");
-
-                model.addRow(new Object[]{fecha, cantidad, precio, total});
+                String infoCompra = rs.getString("INFO_COMPRA");
+                model.addRow(new Object[]{infoCompra});
             }
 
             tabla.setModel(model);
@@ -127,5 +124,5 @@ public class CompraDAO {
             }
         }
     }
-    
+
 }

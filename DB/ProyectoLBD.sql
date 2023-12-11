@@ -1101,14 +1101,31 @@ BEGIN
 END proveedor_con_mas_compras;
 
 --Funcion para eliminar compra
-CREATE OR REPLACE FUNCTION DELETE_COMPRA(P_ID_COMPRA IN NUMBER) RETURN VARCHAR2
+create or replace NONEDITIONABLE FUNCTION DELETE_COMPRA(P_ID_COMPRA IN NUMBER) RETURN VARCHAR2
 IS
-    V_RESULT VARCHAR2(100);
 BEGIN
     DELETE FROM COMPRAS
     WHERE ID_COMPRA = P_ID_COMPRA;
     RETURN 'Compra eliminada correctamente.';
 END;
+
+--Funcion para mostrar compras
+CREATE OR REPLACE NONEDITIONABLE FUNCTION READ_COMPRAS
+RETURN SYS_REFCURSOR
+AS
+    v_result SYS_REFCURSOR;
+BEGIN
+    OPEN v_result FOR
+        SELECT 'ID Compra: ' || ID_COMPRA || ', Fecha: ' || TO_CHAR(FECHA_COMPRA, 'DD/MM/YYYY') || 
+               ', ID Proveedor: ' || ID_PROVEEDOR || ', ID Productos: ' || ID_PRODUCTOS || 
+               ', Cantidad: ' || CANTIDAD || ', Precio: ' || PRECIO || ', Total: ' || TOTAL AS INFO_COMPRA
+        FROM COMPRAS;
+
+    RETURN v_result;
+END;
+
+
+
 
 -----------------------------Cursores para COMPRAS-----------------------------
 
