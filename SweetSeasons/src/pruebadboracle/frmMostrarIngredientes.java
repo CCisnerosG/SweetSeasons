@@ -11,6 +11,7 @@ import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 import javax.swing.border.AbstractBorder;
+import BO.IngredienteBO;
 
 public class frmMostrarIngredientes extends javax.swing.JFrame {
 
@@ -29,7 +30,11 @@ public class frmMostrarIngredientes extends javax.swing.JFrame {
         ));
         
     }
-    
+    private IngredienteBO cbo = new IngredienteBO();
+    public void listarIngredientes (){
+        cbo.listarIngrediente(jtIngrediente);//nombre de la tabla en netbeans
+        
+    }
     private void cambiarColorJMenuBar(String colorHex) {
         // Convierte el color hexadecimal a un objeto Color
         Color color = Color.decode(colorHex);
@@ -79,7 +84,7 @@ public class frmMostrarIngredientes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtIngrediente = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -98,25 +103,25 @@ public class frmMostrarIngredientes extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(250, 249, 192));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Limpiar");
+        jButton2.setText("Volver");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtIngrediente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID Ingrediente", "Nombre", "Unidad Medida", "Precio", "ID Proveedor"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtIngrediente);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,6 +171,8 @@ public class frmMostrarIngredientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        listarIngredientes();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -223,6 +230,6 @@ public class frmMostrarIngredientes extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtIngrediente;
     // End of variables declaration//GEN-END:variables
 }
