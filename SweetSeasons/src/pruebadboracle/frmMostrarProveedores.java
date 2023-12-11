@@ -4,6 +4,7 @@
  */
 package pruebadboracle;
 
+import BO.ProveedorBO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -65,6 +66,12 @@ public class frmMostrarProveedores extends javax.swing.JFrame {
             return insets;
         }
     }
+    
+      private ProveedorBO cbo = new ProveedorBO();
+    public void listarProveedores (){
+        cbo.listarProveedor(jtProveedores);//nombre de la tabla en netbeans
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,7 +86,7 @@ public class frmMostrarProveedores extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtProveedores = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -98,25 +105,25 @@ public class frmMostrarProveedores extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(250, 249, 192));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Limpiar");
+        jButton2.setText("Volver");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID Proveedor", "Nombre", "Primer Apellido", "Segundo Apellido", "Num Telefonico", "Correo", "ID Ingrediente", "Estado"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtProveedores);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -167,6 +174,8 @@ public class frmMostrarProveedores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        listarProveedores();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -229,6 +238,6 @@ public class frmMostrarProveedores extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtProveedores;
     // End of variables declaration//GEN-END:variables
 }
