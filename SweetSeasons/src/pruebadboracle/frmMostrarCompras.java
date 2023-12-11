@@ -113,13 +113,13 @@ public class frmMostrarCompras extends javax.swing.JFrame {
 
         jtCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID Compra", "Fecha Compra", "ID Proveedor", "ID Producto", "Cantidad", "Precio", "Total"
+
             }
         ));
         jScrollPane1.setViewportView(jtCompra);

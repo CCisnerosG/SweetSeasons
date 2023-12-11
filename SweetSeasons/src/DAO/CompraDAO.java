@@ -67,7 +67,7 @@ public class CompraDAO {
     public String eliminarCompra(Connection conn, int id) {
         CallableStatement cst = null;
 
-        String sql = "{call DELETE_COMPRA(?)}";
+        String sql = "{call EJ_FUNC_COMPRA(?)}";
 
         try {
             cst = conn.prepareCall(sql);

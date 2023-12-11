@@ -82,7 +82,7 @@ public class CompraBO {
     }
     public void listarCompra(JTable tabla){
         Connection conn = conexion.conectar();
-        cdao.listarCompra(conn, tabla);
+        cdao.listarCompras(conn, tabla);
         try{
             conn.close();
         }catch (SQLException e){
