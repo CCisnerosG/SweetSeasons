@@ -101,7 +101,7 @@ public class CategoriaDAO {
         ResultSet rs = null;
 
         try {
-            cst = conn.prepareCall("{call P_READ_CLIENTE(?)}");
+            cst = conn.prepareCall("{call P_READ_CATEGORIA(?)}");
             cst.registerOutParameter(1, Types.REF_CURSOR);
             cst.execute();
 

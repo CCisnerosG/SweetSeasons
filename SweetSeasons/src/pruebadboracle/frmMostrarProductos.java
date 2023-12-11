@@ -4,6 +4,7 @@
  */
 package pruebadboracle;
 
+import BO.ProductoBO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -30,6 +31,11 @@ public class frmMostrarProductos extends javax.swing.JFrame {
             new frmMostrarProductos.RoundBorder(5)
         ));
         
+    }
+    
+    private ProductoBO cbo = new ProductoBO();
+    public void listarProductos (){
+        cbo.listarProducto(jTable1);
     }
     
     private void cambiarColorJMenuBar(String colorHex) {
@@ -100,7 +106,7 @@ public class frmMostrarProductos extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(250, 249, 192));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Limpiar");
+        jButton2.setText("Volver");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -109,13 +115,13 @@ public class frmMostrarProductos extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID Producto", "Nombre", "Categoria", "Cantidad", "Descripcion", "Tamaño", "Precio"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -168,7 +174,9 @@ public class frmMostrarProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
+        listarProductos();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

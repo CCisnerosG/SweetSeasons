@@ -4,6 +4,10 @@
  */
 package pruebadboracle;
 
+import javax.swing.JOptionPane;
+import BO.ProductoBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class frmEliminarProducto extends javax.swing.JFrame {
 
@@ -160,9 +164,34 @@ public class frmEliminarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
+        try {
+            if (jTextField1.getText().isEmpty() ) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el id para poder eliminar el producto");
+            }else{
+                
+                ProductoBO cbo = new ProductoBO();
+                int idProducto = Integer.parseInt(jTextField1.getText());
+            
+                String mensaje = cbo.eliminarProducto(idProducto);
+                
+                JOptionPane.showMessageDialog(null, mensaje);
+                
+                limpiaCajasDeTexto();
+            }
+           
+        } catch (Exception e) {
+            Logger.getLogger(frmEliminarProducto.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiaCajasDeTexto() {
+        this.jTextField1.setText("");
+    }
+    
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         frmProductos informacion = new frmProductos();
